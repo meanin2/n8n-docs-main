@@ -1,0 +1,778 @@
+Directory structure:
+└── creating-nodes/
+    ├── overview.md
+    ├── deploy/
+    │   ├── index.md
+    │   ├── install-private-nodes.md
+    │   └── submit-community-nodes.md
+    ├── plan/
+    │   ├── choose-node-method.md
+    │   ├── index.md
+    │   ├── node-types.md
+    │   └── node-ui-design.md
+    └── test/
+        ├── index.md
+        ├── node-linter.md
+        ├── run-node-locally.md
+        └── troubleshooting-node-development.md
+
+================================================
+File: overview.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: overview
+---
+
+# Creating nodes
+
+Learn how to build your own custom [nodes](/glossary.md#node-n8n).
+
+This section includes:
+
+* Guidance on planning your build, including [which style to use](/integrations/creating-nodes/plan/choose-node-method.md).
+* [Tutorials](/integrations/creating-nodes/build/index.md) for different node building styles.
+* Instructions for [testing your node](/integrations/creating-nodes/test/index.md), including how to use the n8n [node linter](/integrations/creating-nodes/test/node-linter.md) and [troubleshooting](/integrations/creating-nodes/test/troubleshooting-node-development.md) support.
+* How to [share your node](/integrations/creating-nodes/deploy/submit-community-nodes.md) with the community, or use it as a [private node](/integrations/creating-nodes/deploy/install-private-nodes.md).
+* [Reference material](/integrations/creating-nodes/build/reference/index.md), including UI elements and information on the individual files that make up a node.
+
+## Prerequisites
+
+This section assumes the following:
+
+* Some familiarity with JavaScript and TypeScript.
+* Ability to manage your own development environment, including git.
+* Knowledge of npm, including creating and submitting packages.
+* Familiarity with n8n, including a good understanding of [data structures](/data/data-structure.md) and [item linking](/data/data-mapping/data-item-linking/index.md).
+
+
+
+================================================
+File: deploy/index.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: overview
+---
+
+# Deploy a node
+
+This section contains details on how to deploy and share your node.
+
+You can choose to:
+
+* [Submit your node to the community node repository](/integrations/creating-nodes/deploy/submit-community-nodes.md). This makes it available for everyone to use, and allows you to [install and use it](/integrations/community-nodes/installation/index.md) like any other community node. This is the only way to use custom nodes on cloud.
+* Install the node into your n8n instance as a [private node](/integrations/creating-nodes/deploy/install-private-nodes.md).
+
+
+
+================================================
+File: deploy/install-private-nodes.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: howto
+---
+
+# Install private nodes
+
+You can build your own nodes and install them in your n8n instance without publishing them on npm. This is useful for nodes that you create for internal use only at your company.
+
+## Install your node in a Docker n8n instance
+
+If you're running n8n using Docker, you need to create a Docker image with the node installed in n8n. 
+
+1. Create a Dockerfile and paste the code from [this Dockerfile](https://github.com/n8n-io/n8n/blob/master/docker/images/n8n/Dockerfile).
+
+	Your Dockerfile should look like this:
+
+	```Dockerfile
+	FROM node:16-alpine
+
+	ARG N8N_VERSION
+
+	RUN if [ -z "$N8N_VERSION" ] ; then echo "The N8N_VERSION argument is missing!" ; exit 1; fi
+
+	# Update everything and install needed dependencies
+	RUN apk add --update graphicsmagick tzdata git tini su-exec
+
+	# Set a custom user to not have n8n run as root
+	USER root
+
+	# Install n8n and the packages it needs to build it correctly.
+	RUN apk --update add --virtual build-dependencies python3 build-base ca-certificates && \
+		npm config set python "$(which python3)" && \
+		npm_config_user=root npm install -g full-icu n8n@${N8N_VERSION} && \
+		apk del build-dependencies \
+		&& rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root;
+
+
+	# Install fonts
+	RUN apk --no-cache add --virtual fonts msttcorefonts-installer fontconfig && \
+		update-ms-fonts && \
+		fc-cache -f && \
+		apk del fonts && \
+		find  /usr/share/fonts/truetype/msttcorefonts/ -type l -exec unlink {} \; \
+		&& rm -rf /root /tmp/* /var/cache/apk/* && mkdir /root
+
+	ENV NODE_ICU_DATA /usr/local/lib/node_modules/full-icu
+
+	WORKDIR /data
+
+	COPY docker-entrypoint.sh /docker-entrypoint.sh
+	ENTRYPOINT ["tini", "--", "/docker-entrypoint.sh"]
+
+	EXPOSE 5678/tcp
+	```
+
+2. Compile your custom node code (`npm run build` if you are using nodes starter). Copy the **node** and **credential** folders from within the **dist** folder into your container's `~/.n8n/custom/` directory. This makes them available to Docker.
+
+3. Download the [docker-entrypoint.sh](https://github.com/n8n-io/n8n/blob/master/docker/images/n8n/docker-entrypoint.sh) file, and place it in the same directory as your Dockerfile.
+
+4. Build your Docker image:
+
+	```Dockerfile
+	# Replace <n8n-version-number> with the n8n release version number. 
+	# For example, N8N_VERSION=0.177.0
+	docker build --build-arg N8N_VERSION=<n8n-version-number> --tag=customizedn8n .
+	```
+
+You can now use your node in Docker.
+
+## Install your node in a global n8n instance
+
+If you've installed n8n globally, make sure that you install your node inside n8n. n8n will find the module and load it automatically.
+
+
+
+================================================
+File: deploy/submit-community-nodes.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: howto
+---
+
+# Submit community nodes
+
+--8<-- "_snippets/integrations/submit-community-node.md"
+
+
+
+================================================
+File: plan/choose-node-method.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: explanation
+---
+
+# Choose your node building approach
+
+n8n has two node-building styles, declarative and programmatic.
+
+You should use the declarative style for most nodes. This style:
+
+* Uses a JSON-based syntax, making it simpler to write, with less risk of introducing bugs.
+* Is more future-proof.
+* Supports integration with REST APIs.
+
+The programmatic style is more verbose. You must use the programmatic style for:
+
+* Trigger nodes
+* Any node that isn't REST-based. This includes nodes that need to call a GraphQL API and nodes that use external dependencies.
+* Any node that needs to transform incoming data.
+* Full versioning. Refer to [Node versioning](/integrations/creating-nodes/build/reference/node-versioning.md) for more information on types of versioning.
+
+## Data handling differences
+
+The main difference between the declarative and programmatic styles is how they handle incoming data and build API requests. The programmatic style requires an `execute()` method, which reads incoming data and parameters, then builds a request. The declarative style handles this using the `routing` key in the `operations` object. Refer to [Node base file](/integrations/creating-nodes/build/reference/node-base-files/index.md) for more information on node parameters and the `execute()` method.
+
+## Syntax differences
+
+To understand the difference between the declarative and programmatic styles, compare the two code snippets below. This example creates a simplified version of the SendGrid integration, called "FriendGrid." The following code snippets aren't complete: they emphasize the differences in the node building styles.
+
+In programmatic style:
+
+```js
+import {
+	IExecuteFunctions,
+	INodeExecutionData,
+	INodeType,
+	INodeTypeDescription,
+	IRequestOptions,
+} from 'n8n-workflow';
+
+// Create the FriendGrid class
+export class FriendGrid implements INodeType {
+  description: INodeTypeDescription = {
+    displayName: 'FriendGrid',
+    name: 'friendGrid',
+    . . .
+    properties: [
+      {
+        displayName: 'Resource',
+        . . .
+      },
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        displayOptions: {
+          show: {
+              resource: [
+              'contact',
+              ],
+          },
+        },
+        options: [
+          {
+            name: 'Create',
+            value: 'create',
+            description: 'Create a contact',
+          },
+        ],
+        default: 'create',
+        description: 'The operation to perform.',
+      },
+      {
+        displayName: 'Email',
+        name: 'email',
+        . . .
+      },
+      {
+        displayName: 'Additional Fields',
+        // Sets up optional fields
+      },
+    ],
+};
+
+  async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+    let responseData;
+    const resource = this.getNodeParameter('resource', 0) as string;
+    const operation = this.getNodeParameter('operation', 0) as string;
+    //Get credentials the user provided for this node
+    const credentials = await this.getCredentials('friendGridApi') as IDataObject;
+
+    if (resource === 'contact') {
+      if (operation === 'create') {
+      // Get email input
+      const email = this.getNodeParameter('email', 0) as string;
+      // Get additional fields input
+      const additionalFields = this.getNodeParameter('additionalFields', 0) as IDataObject;
+      const data: IDataObject = {
+          email,
+      };
+
+      Object.assign(data, additionalFields);
+
+      // Make HTTP request as defined in https://sendgrid.com/docs/api-reference/
+      const options: IRequestOptions = {
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${credentials.apiKey}`,
+        },
+        method: 'PUT',
+        body: {
+            contacts: [
+            data,
+            ],
+        },
+        url: `https://api.sendgrid.com/v3/marketing/contacts`,
+        json: true,
+      };
+      responseData = await this.helpers.httpRequest(options);
+      }
+    }
+    // Map data to n8n data
+    return [this.helpers.returnJsonArray(responseData)];
+  }
+}
+```
+
+In declarative style:
+
+```js
+import { INodeType, INodeTypeDescription } from 'n8n-workflow';
+
+// Create the FriendGrid class
+export class FriendGrid implements INodeType {
+  description: INodeTypeDescription = {
+    displayName: 'FriendGrid',
+    name: 'friendGrid',
+    . . .
+    // Set up the basic request configuration
+    requestDefaults: {
+      baseURL: 'https://api.sendgrid.com/v3/marketing'
+    },
+    properties: [
+      {
+        displayName: 'Resource',
+        . . .
+      },
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        displayOptions: {
+          show: {
+            resource: [
+              'contact',
+            ],
+          },
+        },
+        options: [
+          {
+            name: 'Create',
+            value: 'create',
+            description: 'Create a contact',
+            // Add the routing object
+            routing: {
+              request: {
+                method: 'POST',
+                url: '=/contacts',
+                send: {
+                  type: 'body',
+                  properties: {
+                    email: {{$parameter["email"]}}
+                  }
+                }
+              }
+            },
+            // Handle the response to contact creation
+            output: {
+              postReceive: [
+                {
+                  type: 'set',
+                  properties: {
+                    value: '={{ { "success": $response } }}'
+                  }
+                }
+              ]
+            }
+          },
+        ],
+        default: 'create',
+        description: 'The operation to perform.',
+      },
+      {
+        displayName: 'Email',
+        . . .
+      },
+      {
+        displayName: 'Additional Fields',
+        // Sets up optional fields
+      },
+    ],
+  }
+  // No execute method needed
+}
+```
+
+
+
+================================================
+File: plan/index.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: overview
+---
+
+# Plan a node
+
+This section provides guidance on designing your node, including key technical decisions such as choosing your node building style.
+
+When building a node, there are design choices you need to make before you start:
+
+* Which [node type](/integrations/creating-nodes/plan/node-types.md) you need to build.
+* Which [node building style](/integrations/creating-nodes/plan/choose-node-method.md) to use.
+* Your [UI design and UX principles](/integrations/creating-nodes/plan/node-ui-design.md)
+* Your node's [file structure](/integrations/creating-nodes/build/reference/node-file-structure.md).
+
+
+
+================================================
+File: plan/node-types.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: explanation
+---
+
+# Node types: Trigger and Action
+
+There are two node types you can build for n8n: trigger nodes and action nodes.
+
+Both types provide integrations with external services. 
+
+## Trigger nodes
+
+[Trigger nodes](/glossary.md#trigger-node-n8n) start a workflow and supply the initial data. A workflow can contain multiple trigger nodes but with each execution, only one of them will execute, depending on the triggering event.
+
+There are three types of trigger nodes in n8n: 
+
+| Type | Description | Example Nodes |
+| --- | --- | --- |
+| Webhook | Nodes for services that support webhooks. These nodes listen for events and trigger workflows in real time. | [Zendesk Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Zendesk){:target=_blank .external-link}, [Telegram Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Telegram){:target=_blank .external-link}, [Brevo Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Brevo){:target=_blank .external-link} |
+| Polling | Nodes for services that don't support webhooks. These nodes periodically check for new data, triggering workflows when they detect updates. | [Airtable Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Airtable){:target=_blank .external-link}, [Gmail Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Google/Gmail){:target=_blank .external-link}, [Google Sheet Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Google/Sheet){:target=_blank .external-link}, [RssFeed Read Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/RssFeedRead){:target=_blank .external-link} |
+| Others | Nodes that handle real-time responses not related to HTTP requests or polling. This includes message queue nodes and time-based triggers. | [AMQP Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Amqp){:target=_blank .external-link}, [RabbitMQ Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/RabbitMQ){:target=_blank .external-link}, [MQTT Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/MQTT){:target=_blank .external-link}, [Schedule Trigger](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/Schedule){:target=_blank .external-link}, [Email Trigger (IMAP)](https://github.com/n8n-io/n8n/tree/master/packages/nodes-base/nodes/EmailReadImap){:target=_blank .external-link} |
+
+## Action nodes
+
+Action nodes perform operations as part of your workflow. These can include manipulating data, and triggering events in other systems.
+
+
+
+
+================================================
+File: plan/node-ui-design.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: reference
+---
+
+# Design your node's user interface
+
+Most nodes are a GUI (graphical user interface) representation of an API. Designing the interface means finding a user-friendly way to represent API endpoints and parameters. Directly translating an entire API into form fields in a node may not result in a good user experience.
+
+This document provides design guidance and standards to follow. These guidelines are the same as those used by n8n. This helps provide a smooth and consistent user experience for users mixing community and built-in nodes.
+
+## Design guidance
+
+All node's use n8n's [node UI elements](/integrations/creating-nodes/build/reference/ui-elements.md), so you don't need to consider style details such as colors, borders, and so on. However, it's still useful to go through a basic design process:
+
+* Review the documentation for the API you're integrating. Ask yourself:
+    * What can you leave out? 
+    * What can you simplify?
+    * Which parts of the API are confusing? How can you help users understand them?
+* Use a wireframe tool to try out your field layout. If you find your node has a lot of fields and is getting confusing, consider n8n's guidance on [showing and hiding fields](#showing-and-hiding-fields).
+
+## Standards
+
+### UI text style
+
+| Element | Style |
+| ------- | ----- |
+| Drop-down value | Title case |
+| Hint | Sentence case |
+| Info box | Sentence case. Don't use a period (`.`) for one-sentence information. Always use a period if there's more than one sentence. This field can include links, which should open in a new tab. |
+| Node name | Title case |
+| Parameter name | Title case |
+| Subtitle | Title case |
+| Tooltip | Sentence case. Don't use a period (`.`) for one-sentence tooltips. Always use a period if there's more than one sentence. This field can include links, which should open in a new tab. |
+
+### UI text terminology
+
+* Use the same terminology as the service the node connects to. For example, a Notion node should refer to Notion blocks, not Notion paragraphs, because Notion calls these elements blocks. There are exceptions to this rule, usually to avoid technical terms (for example, refer to the guidance on [name and description for upsert operations](#upsert-operations)).
+* Sometimes a service has different terms for something in its API and in its GUI. Use the GUI language in your node, as this is what most users are familiar with. If you think some users may need to refer to the service's API docs, consider including this information in a hint.
+* Don't use technical jargon when there are simpler alternatives.
+* Be consistent when naming things. For example, choose one of `directory` or `folder` then stick to it. 
+
+### Node naming conventions
+
+| Convention | Correct | Incorrect |
+| ---------- | ------- | --------- |
+| If a node is a trigger node, <br>the displayed name should have 'Trigger' at the end, <br>with a space before. | Shopify Trigger | ShopifyTrigger, Shopify trigger |
+| Don't include 'node' in the name. | Asana | Asana Node, Asana node |
+
+### Showing and hiding fields
+
+Fields can either be:
+
+* Displayed when the node opens: use this for resources and operations, and required fields.
+* Hidden in the **Optional fields** section until a user clicks on that section: use this for optional fields.
+
+Progressively disclose complexity: hide a field until any earlier fields it depends on have values. For example, if you have a **Filter by date** toggle, and a **Date to filter by** datepicker, don't display **Date to filter by** until the user enables **Filter by date**.
+
+
+### Conventions by field type
+
+#### Credentials
+
+n8n automatically displays credential fields as the top fields in the node.
+
+#### Resources and operations
+
+APIs usually involve doing something to data. For example, "get all tasks." In this example, "task" is the resource, and "get all" is the operation.
+
+When your node has this resource and operation pattern, your first field should be **Resource**, and your second field should be **Operation**.
+
+#### Required fields
+
+Order fields by:
+
+* Most important to least important.
+* Scope: from broad to narrow. For example, you have fields for **Document**, **Page**, and **Text to insert**, put them in that order.
+
+#### Optional fields
+
+* Order fields alphabetically. To group similar things together, you can rename them. For example, rename **Email** and **Secondary Email** to **Email (primary)** and **Email (secondary)**.
+* If an optional field has a default value that the node uses when the value isn't set, load the field with that value. Explain this in the field description. For example, **Defaults to false**.
+* Connected fields: if one optional fields is dependent on another, bundle them together. They should both be under a single option that shows both fields when selected.
+* If you have a lot of optional fields, consider grouping them by theme.
+
+#### Help
+
+There are five types of help built in to the GUI:
+
+* Info boxes: yellow boxes that appear between fields. Refer to [UI elements | Notice](/integrations/creating-nodes/build/reference/ui-elements.md#notice) for more information.
+  * Use info boxes for essential information. Don't over-use them. By making them rare, they stand out more and grab the user's attention.
+* Parameter hints: lines of text displayed beneath a user input field. Use this when there's something the user needs to know, but an info box would be excessive.
+* Node hints: provide help in the input panel, output panel, or node details view. Refer to [UI elements | Hints](/integrations/creating-nodes/build/reference/ui-elements.md#hints) for more information.
+* Tooltips: callouts that appear when the user hovers over the tooltip icon !["Screenshot of the tooltip icon. The icon is a ? in a grey circle"](/_images/common-icons/help-tooltip.png). Use tooltips for extra information that the user might need.
+  * You don't have to provide a tooltip for every field. Only add one if it contains useful information. 
+  * When writing tooltips, think about what the user needs. Don't just copy-paste API parameter descriptions. If the description doesn't make sense, or has errors, improve it.
+* Placeholder text: n8n can display placeholder text in a field where the user hasn't entered a value. This can help the user know what's expected in that field.
+
+Info boxes, hints, and tooltips can contain links to more information.
+
+#### Errors
+
+Make it clear which fields are required.
+
+Add validation rules to fields if possible. For example, check for valid email patterns if the field expects an email.
+
+When displaying errors, make sure only the main error message displays in the red error title. More information should go in **Details**.
+
+#### Toggles
+
+* Tooltips for binary states should start with something like **Whether to . . . **.
+* You may need a list rather than a toggle:
+    * Use toggles when it's clear what happens in a false state. For example, **Simplify Output?**. The alternative (don't simplify output) is clear.
+    * Use a dropdown list with named options when you need more clarity. For example, **Append?**. What happens if you don't append is unclear (it could be that nothing happens, or information is overwritten, or discarded).
+
+#### Lists
+
+* Set default values for lists whenever possible. The default should be the most-used option.
+* Sort list options alphabetically.
+* You can include list option descriptions. Only add descriptions if they provide useful information.
+* If there is an option like **All**, use the word **All**, not shorthand like *****.
+
+#### Trigger node inputs
+
+When a trigger node has a parameter for specifying which events to trigger on:
+
+* Name the parameter **Trigger on**.
+* Don't include a tooltip.
+
+#### Subtitles
+
+Set subtitles based on the values of the main parameters. For example:
+
+```js
+subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
+```
+
+#### IDs
+
+When performing an operation on a specific record, such as "update a task comment" you need a way to specify which record you want to change.
+
+* Wherever possible, provide two ways to specify a record:
+    * By choosing from a pre-populated list. You can generate this list using the `loadOptions` parameter. Refer to [Base files](/integrations/creating-nodes/build/reference/node-base-files/index.md) for more information.
+    * By entering an ID.
+* Name the field `<Record name> name or ID`. For example, **Workspace Name or ID**. Add a tooltip saying "Choose a name from the list, or specify an ID using an expression." Link to n8n's [Expressions](/code/expressions.md) documentation.
+* Build your node so that it can handle users providing more information than required. For example:
+    * If you need a relative path, handle the user pasting in the absolute path.
+    * If the user needs to get an ID from a URL, handle the user pasting in the entire URL.
+
+#### Dates and timestamps
+
+n8n uses [ISO timestamp strings](https://en.wikipedia.org/wiki/ISO_8601){:target=_blank class=.external-link} for dates and times. Make sure that any date or timestamp field you add supports all ISO 8601 formats.
+
+#### JSON
+
+You should support two ways of specifying the content of a text input that expects JSON:
+
+* Typing JSON directly into the text input: you need to parse the resulting string into a JSON object.
+* Using an expression that returns JSON.
+
+
+
+#### Node icons
+
+--8<-- "_snippets/integrations/node-icons.md"
+
+
+### Common patterns and exceptions
+
+This section provides guidance on handling common design patterns, including some edge cases and exceptions to the main standards.
+
+#### Simplify responses
+
+APIs can return a lot of data that isn't useful. Consider adding a toggle that allows users to choose to simplify the response data:
+
+  * Name: **Simplify Response**
+  * Description: **Whether to return a simplified version of the response instead of the raw data**
+
+#### Upsert operations
+
+This should always be a separate operation with:
+
+  * Name: **Create or Update**
+  * Description: **Create a new record, or update the current one if it already exists (upsert)**
+
+#### Boolean operators
+<!-- vale off -->
+n8n doesn't have good support for combining boolean operators, such as AND and OR, in the GUI. Whenever possible, provide options for all ANDs or all ORs.
+<!-- vale on -->
+
+For example, you have a field called **Must match** to test if values match. Include options to test for **Any** and **All**, as separate options.
+
+#### Source keys or binary properties
+
+Binary data is file data, such as spreadsheets or images. In n8n, you need a named key to reference the data. Don't use the terms "binary data" or "binary property" for this field. Instead, use a more descriptive name: **Input data field name** / **Output data field name**.
+
+
+
+
+
+
+
+
+
+================================================
+File: test/index.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: overview
+---
+
+# Test a node
+
+This section contains information about testing your node.
+
+There are two ways to test your node:
+
+* Manually, by [running it on your own machine](/integrations/creating-nodes/test/run-node-locally.md) within a local n8n instance.
+* Automatically, using the [linter](/integrations/creating-nodes/test/node-linter.md).
+
+You should use both methods before publishing your node.
+
+
+
+================================================
+File: test/node-linter.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: howto
+---
+
+# n8n node linter
+
+n8n's node linter, [`eslint-plugin-n8n-nodes-base`](https://github.com/ivov/eslint-plugin-n8n-nodes-base), statically analyzes ("lints") the source code of n8n nodes and credentials in the official repository and in community packages. The linter detects issues and automatically fixes them to help you follow best practices.
+
+`eslint-plugin-n8n-nodes-base` contains a [collection of rules](https://github.com/ivov/eslint-plugin-n8n-nodes-base#ruleset) for node files (`*.node.ts`), resource description files (`*Description.ts`), credential files (`*.credentials.ts`), and the `package.json` of a community package.
+
+## Setup
+
+If using the [n8n node starter](https://github.com/n8n-io/n8n-nodes-starter): Run `npm install` in the starter project to install all dependencies. Once the installation finishes, the linter is available to you. 
+
+If using VS Code, install the [ESLint VS Code extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.VS Code-eslint). For other IDEs, refer to their ESLint integrations.
+
+/// note | Don't edit the configuration file
+[`.eslintrc.js`](https://github.com/n8n-io/n8n-nodes-starter/blob/master/.eslintrc.js) contains the configuration for `eslint-plugin-n8n-nodes-base`. Don't edit this file.
+///
+
+## Usage
+
+You can use the linter in a community package or in the main n8n repository.
+
+### Linting
+
+In a community package, the linter runs automatically after installing dependencies and before publishing the package to npm. In the [main n8n repository](https://github.com/n8n-io/n8n){:target=_blank .external-link}, the linter runs automatically using GitHub Actions whenever you push to your pull request.
+
+In both cases, VS Code lints in the background as you work on your project. Hover over a detected issue to see a full description of the linting and a link to further information.
+
+You can also run the linter manually:
+
+* Run `npm run lint` to lint and view detected issues in your console. 
+* Run `npm run lintfix` to lint and automatically fix issues. The linter fixes violations of rules [marked as automatically fixable](https://github.com/ivov/eslint-plugin-n8n-nodes-base#ruleset).
+
+Both commands can run in the root directory of your community package, or in `/packages/nodes-base/` in the main repository.
+
+### Exceptions
+
+Instead of fixing a rule violation, you can also make an exception for it, so the linter doesn't flag it.
+
+To make a lint exception from VS Code: hover over the issue and click on `Quick fix` (or `cmd+.` in macOS) and select **Disable {rule} for this line**. Only disable rules for a line where you have good reason to. If you think the linter is incorrectly reporting an issue, please [report it in the linter repository](https://github.com/ivov/eslint-plugin-n8n-nodes-base/issues).
+
+To add a lint exception to a single file, add a code comment. In particular, TSLint rules may not show up in VS Code and may need to be turned off using code comments. Refer to the [TSLint documentation](https://palantir.github.io/tslint/usage/rule-flags/) for more guidance.  
+
+
+
+================================================
+File: test/run-node-locally.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: howto
+---
+
+# Run your node locally
+
+--8<-- "_snippets/integrations/creating-nodes/testing.md"
+
+
+================================================
+File: test/troubleshooting-node-development.md
+================================================
+---
+#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
+contentType: howto
+---
+
+# Troubleshooting
+
+## Credentials
+
+<!-- vale off -->
+### Error message: 'Credentials of type "*" aren't known'
+<!-- vale on -->
+
+Check that the name in the credentials array matches the name used in the property name of the credentials' class.
+
+![Troubleshooting credentials](/_images/integrations/creating-nodes/troubleshooting-credentials-1.png)
+
+<!-- vale off -->
+## Editor UI
+<!-- vale on -->
+
+<!-- vale off -->
+### Error message: 'There was a problem loading init data: API-Server can not be reached. It's probably down'
+<!-- vale on -->
+
+- Check that the names of the node file, node folder, and class match the path added to `packages/nodes-base/package.json`.
+- Check that the names used in the `displayOptions` property are names used by UI elements in the node.
+
+<!-- vale off -->
+### Node icon doesn't show up in the Add Node menu and the Editor UI
+<!-- vale on -->
+
+- Check that the icon is in the same folder as the node.
+- Check that it's either in PNG or SVG format.
+- When the `icon` property references the icon file, check that it includes the logo extension (`.png` or `.svg`) and that it prefixes it with `file:`. For example, `file:friendGrid.png` or `file:friendGrid.svg`.
+
+### Node icon doesn't fit
+
+- If you use an SVG file, make sure the canvas size is square. You can find instructions to change the canvas size of an SVG file using GIMP [here](https://docs.gimp.org/2.10/en/gimp-image-resize.html).
+- If you use a PNG file, make sure that it's 60x60 pixels.
+
+### Node doesn't show up in the Add Node menu
+
+Check that you registered the node in the `package.json` file in your project.
+
+<!-- vale off -->
+### Changes to the description properties don't show in the UI on refreshing
+<!-- vale on -->
+
+Every time you change the description properties, you have to stop the current n8n process (`ctrl` + `c`) and run it again. You may also need to re-run `npm link`.
+
+### Linter incorrectly warning about file name case
+
+The node linter has rules for file names, including what case they should be. Windows users may encounter an issue when renaming files that causes the linter to continue giving warnings, even after you rename the files. This is due to a [known Windows issue](https://answers.microsoft.com/en-us/windows/forum/all/file-renaming-when-changing-case-doesnt-work/aa15ff7c-dd2d-4ed3-bcce-799ca90d4e58) with changing case when renaming files.
+
+

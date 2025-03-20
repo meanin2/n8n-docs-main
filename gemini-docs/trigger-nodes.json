@@ -1,0 +1,1222 @@
+{
+    "triggersLibrary": {
+      "overview": "# Triggers library\n\nThis section provides information about [n8n's Triggers](/glossary.md#trigger-node-n8n)."
+    },
+    "activeCampaignTrigger": {
+      "title": "ActiveCampaign Trigger node documentation",
+      "description": "Learn how to use the ActiveCampaign Trigger node in n8n. Follow technical documentation to integrate ActiveCampaign Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/activecampaign.md",
+      "examples": "https://n8n.io/integrations/activecampaign-trigger/"
+    },
+    "acuitySchedulingTrigger": {
+      "title": "Acuity Scheduling Trigger node documentation",
+      "description": "Learn how to use the Acuity Scheduling Trigger node in n8n. Follow technical documentation to integrate Acuity Scheduling Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/acuityscheduling.md",
+      "examples": "https://n8n.io/integrations/acuity-scheduling-trigger/"
+    },
+    "affinityTrigger": {
+      "title": "Affinity Trigger node documentation",
+      "description": "Learn how to use the Affinity Trigger node in n8n. Follow technical documentation to integrate Affinity Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/affinity.md",
+      "examples": "https://n8n.io/integrations/affinity-trigger/"
+    },
+    "airtableTrigger": {
+      "title": "Airtable Trigger node documentation",
+      "description": "Learn how to use the Airtable Trigger node in n8n. Follow technical documentation to integrate Airtable Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/airtable.md",
+      "events": [
+        "New Airtable event"
+      ],
+      "parameters": {
+        "pollTimes": "Configures the querying frequency:\n\n* Every Minute\n* Every Hour\n* Every Day\n* Every Week\n* Every Month\n* Every X: Check for updates every given number of minutes or hours.\n* Custom: Customize the polling interval by providing a [cron expression](https://en.wikipedia.org/wiki/Cron).\n\nUse the **Add Poll Time** button to add more polling intervals.",
+        "base": "The [Airtable base](https://support.airtable.com/docs/airtable-bases-overview) you want to check for updates on. You can provide your base's URL or [base ID](https://support.airtable.com/docs/finding-airtable-ids#finding-base-table-and-view-ids-from-urls).",
+        "table": "The [Airtable table](https://support.airtable.com/docs/tables-overview) within the Airtable base that you want to check for updates on. You can provide the table's URL or [table ID](https://support.airtable.com/docs/finding-airtable-ids#finding-base-table-and-view-ids-from-urls).",
+        "triggerField": "A created or last modified field in your table. The Airtable Trigger node uses this to determine what updates occurred since the previous check.",
+        "downloadAttachments": "Whether to download attachments from the table. When enabled, the **Download Fields** parameter defines the attachment fields.",
+        "downloadFields": "When you enable the **Download Attachments** toggle, this field defines which table fields to download. Field names are case sensitive. Use a comma to separate multiple field names.",
+        "additionalFields": {
+          "fields": "A comma-separated list of fields to include in the output. If you don't specify anything here, the output will contain only the **Trigger Field**.",
+          "formula": "An [Airtable formula](https://support.airtable.com/docs/formula-field-reference) to further filter the results. You can use this to add further constraints to the events that trigger the workflow. Note that formula values aren't taken into account for manual executions, only for production polling.",
+          "viewID": "The name or ID of a table view. When defined, only returns records available in the given view."
+        }
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.airtable/index.md",
+        "examples": "https://n8n.io/integrations/airtable-trigger/",
+        "api_docs": "https://airtable.com/developers/web/api/introduction"
+      }
+    },
+    "amqpTrigger": {
+      "title": "AMQP Trigger node documentation",
+      "description": "Learn how to use the AMQP Trigger node in n8n. Follow technical documentation to integrate AMQP Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/amqp.md",
+      "examples": "https://n8n.io/integrations/amqp-trigger/"
+    },
+    "asanaTrigger": {
+      "title": "Asana Trigger node documentation",
+      "description": "Learn how to use the Asana Trigger node in n8n. Follow technical documentation to integrate Asana Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/asana.md",
+      "examples": "https://n8n.io/integrations/asana-trigger/"
+    },
+    "autopilotTrigger": {
+      "title": "Autopilot Trigger node documentation",
+      "description": "Learn how to use the Autopilot Trigger node in n8n. Follow technical documentation to integrate Autopilot Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/autopilot.md",
+      "examples": "https://n8n.io/integrations/autopilot-trigger/",
+      "events": [
+        "Contact added",
+        "Contact added to a list",
+        "Contact entered to a segment",
+        "Contact left a segment",
+        "Contact removed from a list",
+        "Contact unsubscribed",
+        "Contact updated"
+      ]
+    },
+    "awsSnsTrigger": {
+      "title": "AWS SNS Trigger node documentation",
+      "description": "Learn how to use the AWS SNS Trigger node in n8n. Follow technical documentation to integrate AWS SNS Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/aws.md",
+      "examples": "https://n8n.io/integrations/aws-sns-trigger/"
+    },
+    "bitbucketTrigger": {
+      "title": "Bitbucket Trigger node documentation",
+      "description": "Learn how to use the Bitbucket Trigger node in n8n. Follow technical documentation to integrate Bitbucket Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/bitbucket.md",
+      "examples": "https://n8n.io/integrations/bitbucket-trigger/"
+    },
+    "boxTrigger": {
+      "title": "Box Trigger node documentation",
+      "description": "Learn how to use the Box Trigger node in n8n. Follow technical documentation to integrate Box Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/box.md",
+      "examples": "https://n8n.io/integrations/box-trigger/",
+      "findTargetId": "To get your Target ID in Box:\n\n1. Open the file/folder that you would like to monitor.\n2. Copy the string of characters after folder/ in your URL. This is the target ID. For example, if the URL is https://app.box.com/folder/12345, then 12345 is the target ID.\n3. Paste it in the **Target ID** field in n8n."
+    },
+    "brevoTrigger": {
+      "title": "Brevo Trigger node documentation",
+      "description": "Learn how to use the Brevo Trigger node in n8n. Follow technical documentation to integrate Brevo Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/brevo.md",
+      "examples": "https://n8n.io/integrations/brevo-trigger/"
+    },
+    "calendlyTrigger": {
+      "title": "Calendly Trigger node documentation",
+      "description": "Learn how to use the Calendly Trigger node in n8n. Follow technical documentation to integrate Calendly Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/calendly.md",
+      "examples": "https://n8n.io/integrations/calendly-trigger/"
+    },
+    "calTrigger": {
+      "title": "Cal Trigger node documentation",
+      "description": "Learn how to use the Cal Trigger node in n8n. Follow technical documentation to integrate Cal Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/cal.md",
+      "examples": "https://n8n.io/integrations/cal-trigger/"
+    },
+    "chargebeeTrigger": {
+      "title": "Chargebee Trigger node documentation",
+      "description": "Learn how to use the Chargebee Trigger node in n8n. Follow technical documentation to integrate Chargebee Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/chargebee.md",
+      "examples": "https://n8n.io/integrations/chargebee-trigger/",
+      "addWebhookUrl": "To add a Webhook URL in Chargebee:\n\n1. Open your Chargebee dashboard.\n2. Go to **Settings** > **Configure Chargebee**.\n4. Scroll down and select **Webhooks**.\n5. Select the **Add Webhook** button.\n6. Enter the **Webhook Name** and the **Webhook URL**.\n7. Select **Create**."
+    },
+    "ciscoWebexTrigger": {
+      "title": "Webex by Cisco Trigger node documentation",
+      "description": "Learn how to use the Webex by Cisco Trigger node in n8n. Follow technical documentation to integrate Webex by Cisco Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/ciscowebex.md",
+      "examples": "https://n8n.io/integrations/webex-by-cisco-trigger/"
+    },
+    "clickUpTrigger": {
+      "title": "ClickUp Trigger node documentation",
+      "description": "Learn how to use the ClickUp Trigger node in n8n. Follow technical documentation to integrate ClickUp Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/clickup.md",
+      "examples": "https://n8n.io/integrations/clickup-trigger/"
+    },
+    "clockifyTrigger": {
+      "title": "Clockify Trigger node documentation",
+      "description": "Learn how to use the Clockify Trigger node in n8n. Follow technical documentation to integrate Clockify Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/clockify.md",
+      "examples": "https://n8n.io/integrations/clockify-trigger/",
+      "timezoneNote": "This node uses the workflow timezone setting to specify the range of time entries starting time. Configure the timezone in your [Workflow Settings](/workflows/settings.md) if you want this trigger node to retrieve the right time entries."
+    },
+    "convertKitTrigger": {
+      "title": "ConvertKit Trigger node documentation",
+      "description": "Learn how to use the ConvertKit Trigger node in n8n. Follow technical documentation to integrate ConvertKit Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/convertkit.md",
+      "examples": "https://n8n.io/integrations/convertkit-trigger/"
+    },
+    "copperTrigger": {
+      "title": "Copper Trigger node documentation",
+      "description": "Learn how to use the Copper Trigger node in n8n. Follow technical documentation to integrate Copper Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/copper.md",
+      "examples": "https://n8n.io/integrations/copper-trigger/"
+    },
+    "crowdDevTrigger": {
+      "title": "crowd.dev Trigger node documentation",
+      "description": "Learn how to use the crowd.dev Trigger node in n8n. Follow technical documentation to integrate crowd.dev Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/crowddev.md",
+      "examples": "https://n8n.io/integrations/crowddev-trigger/",
+      "events": [
+        "New Activity",
+        "New Member"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.crowddev.md",
+        "examples": "https://n8n.io/integrations/crowddev/",
+        "api_docs": "https://docs.crowd.dev/reference/getting-started-with-crowd-dev-api"
+      }
+    },
+    "customerIoTrigger": {
+      "title": "Customer.io Trigger node documentation",
+      "description": "Learn how to use the Customer.io Trigger node in n8n. Follow technical documentation to integrate Customer.io Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/customerio.md",
+      "examples": "https://n8n.io/integrations/customerio-trigger/"
+    },
+    "emeliaTrigger": {
+      "title": "Emelia Trigger node documentation",
+      "description": "Learn how to use the Emelia Trigger node in n8n. Follow technical documentation to integrate Emelia Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/emelia.md",
+      "examples": "https://n8n.io/integrations/emelia-trigger/",
+      "events": [
+        "Email Bounced",
+        "Email Opened",
+        "Email Replied",
+        "Email Sent",
+        "Link Clicked",
+        "Unsubscribed Contact"
+      ]
+    },
+    "eventbriteTrigger": {
+      "title": "Eventbrite Trigger node documentation",
+      "description": "Learn how to use the Eventbrite Trigger node in n8n. Follow technical documentation to integrate Eventbrite Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/eventbrite.md",
+      "examples": "https://n8n.io/integrations/eventbrite-trigger/"
+    },
+    "facebookLeadAdsTrigger": {
+      "title": "Facebook Lead Ads Trigger node documentation",
+      "description": "Learn how to use the Facebook Lead Ads Trigger node in n8n. Follow technical documentation to integrate Facebook Lead Ads Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/facebookleadads.md",
+      "examples": "https://n8n.io/integrations/facebook-lead-ads-trigger/",
+      "events": [
+        "New lead"
+      ],
+      "related_resources": {
+        "examples": "https://n8n.io/integrations/facebook-lead-ads-trigger/",
+        "api_docs": "https://developers.facebook.com/docs/marketing-api/guides/lead-ads/"
+      },
+      "common_issues": {
+        "workflowOnlyWorksInTestingOrProduction": "Facebook Lead Ads only allows you to register a single webhook per app. This means that every time you switch from using the testing URL to the production URL (and vice versa), Facebook Lead Ads overwrites the registered webhook URL.\n\nYou may have trouble with this if you try to test a workflow that's also active in production. Facebook Lead Ads will only send events to one of the two webhook URLs, so the other will never receive event notifications.\n\nTo work around this, you can disable your workflow when testing:\n\n/// warning | Halts production traffic\nThis workaround temporarily disables your production workflow for testing. Your workflow will no longer receive production traffic while it's deactivated.\n///\n\n1. Go to your workflow page.\n2. Toggle the **Active** switch in the top panel to disable the workflow temporarily.\n3. Test your workflow using the test webhook URL.\n4. When you finish testing, toggle the **Inactive** toggle to enable the workflow again. The production webhook URL should resume working."
+      }
+    },
+    "figmaTriggerBeta": {
+      "title": "Figma Trigger (Beta) node documentation",
+      "description": "Learn how to use the Figma Trigger node in n8n. Follow technical documentation to integrate Figma Trigger node into your workflows.",
+      "warning": "Figma doesn't support webhooks on the free \"Starter\" plan. Your team needs to be on the \"Professional\" plan to use this node.",
+      "credentials": "/integrations/builtin/credentials/figma.md",
+      "examples": "https://n8n.io/integrations/figma-trigger-beta/",
+      "events": [
+        "File Commented",
+        "File Deleted",
+        "File Updated",
+        "File Version Updated",
+        "Library Publish"
+      ]
+    },
+    "flowTrigger": {
+      "title": "Flow Trigger node documentation",
+      "description": "Learn how to use the Flow Trigger node in n8n. Follow technical documentation to integrate Flow Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/flow.md",
+      "examples": "https://n8n.io/integrations/flow-trigger/"
+    },
+    "formIoTrigger": {
+      "title": "Form.io Trigger node documentation",
+      "description": "Learn how to use the Form.io Trigger node in n8n. Follow technical documentation to integrate Form.io Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/formiotrigger.md",
+      "examples": "https://n8n.io/integrations/formio-trigger/"
+    },
+    "formstackTrigger": {
+      "title": "Formstack Trigger node documentation",
+      "description": "Learn how to use the Formstack Trigger node in n8n. Follow technical documentation to integrate Formstack Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/formstacktrigger.md",
+      "examples": "https://n8n.io/integrations/formstack-trigger/"
+    },
+    "getResponseTrigger": {
+      "title": "GetResponse Trigger node documentation",
+      "description": "Learn how to use the GetResponse Trigger node in n8n. Follow technical documentation to integrate GetResponse Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/getresponse.md",
+      "examples": "https://n8n.io/integrations/getresponse-trigger/",
+      "events": [
+        "Receive notifications when a customer is subscribed to a list",
+        "Receive notifications when a customer is unsubscribed from a list",
+        "Receive notifications when an email is opened",
+        "Receive notifications when an email is clicked",
+        "Receive notifications when a survey is submitted"
+      ]
+    },
+    "gitHubTrigger": {
+      "title": "GitHub Trigger node documentation",
+      "description": "Learn how to use the GitHub Trigger node in n8n. Follow technical documentation to integrate GitHub Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/github.md",
+      "examples": "https://n8n.io/integrations/github-trigger/"
+    },
+    "gitLabTrigger": {
+      "title": "GitLab Trigger node documentation",
+      "description": "Learn how to use the GitLab Trigger node in n8n. Follow technical documentation to integrate GitLab Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/gitlab.md",
+      "examples": "https://n8n.io/integrations/gitlab-trigger/"
+    },
+    "googleBusinessProfileTrigger": {
+      "title": "Google Business Profile Trigger node documentation",
+      "description": "Learn how to use the Google Business Profile Trigger node in n8n. Follow technical documentation to integrate Google Business Profile Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/google/index.md",
+      "examples": "https://n8n.io/integrations/google-business-profile-trigger/",
+      "events": [
+        "Review Added"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.googlebusinessprofile.md",
+        "examples": "https://n8n.io/integrations/google-business-profile-trigger/",
+        "api_docs": "https://developers.google.com/my-business/reference/rest"
+      }
+    },
+    "googleCalendarTrigger": {
+      "title": "Google Calendar Trigger node documentation",
+      "description": "Learn how to use the Google Calendar Trigger node in n8n. Follow technical documentation to integrate Google Calendar Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/google/index.md",
+      "examples": "https://n8n.io/integrations/google-calendar-trigger/",
+      "events": [
+        "Event Cancelled",
+        "Event Created",
+        "Event Ended",
+        "Event Started",
+        "Event Updated"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.googlecalendar/index.md",
+        "examples": "https://n8n.io/integrations/google-calendar-trigger/",
+        "api_docs": "https://developers.google.com/calendar/api/v3/reference"
+      }
+    },
+    "gumroadTrigger": {
+      "title": "Gumroad Trigger node documentation",
+      "description": "Learn how to use the Gumroad Trigger node in n8n. Follow technical documentation to integrate Gumroad Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/gumroad.md",
+      "examples": "https://n8n.io/integrations/gumroad-trigger/"
+    },
+    "helpScoutTrigger": {
+      "title": "Help Scout Trigger node documentation",
+      "description": "Learn how to use the Help Scout Trigger node in n8n. Follow technical documentation to integrate Help Scout Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/helpscout.md",
+      "examples": "https://n8n.io/integrations/helpscout-trigger/"
+    },
+    "hubSpotTrigger": {
+      "title": "HubSpot Trigger node documentation",
+      "description": "Learn how to use the HubSpot Trigger node in n8n. Follow technical documentation to integrate HubSpot Trigger node into your workflows.",
+      "warning": "If you activate a second trigger, the previous trigger stops working. This is because the trigger registers a new webhook with HubSpot when activated. HubSpot only allows one webhook at a time.",
+      "credentials": "/integrations/builtin/credentials/hubspot.md",
+      "examples": "https://n8n.io/integrations/hubspot-trigger/",
+      "events": {
+        "company": [
+          "Created",
+          "Deleted",
+          "Property changed"
+        ],
+        "contact": [
+          "Created",
+          "Deleted",
+          "Privacy deleted",
+          "Property changed"
+        ],
+        "conversation": [
+          "Created",
+          "Deleted",
+          "New message",
+          "Privacy deletion",
+          "Property changed"
+        ],
+        "deal": [
+          "Created",
+          "Deleted",
+          "Property changed"
+        ],
+        "ticket": [
+          "Created",
+          "Deleted",
+          "Property changed"
+        ]
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.hubspot.md",
+        "examples": "https://n8n.io/integrations/hubspot-trigger/",
+        "api_docs": "https://developers.hubspot.com/docs/api/overview"
+      }
+    },
+    "invoiceNinjaTrigger": {
+      "title": "Invoice Ninja Trigger node documentation",
+      "description": "Learn how to use the Invoice Ninja Trigger node in n8n. Follow technical documentation to integrate Invoice Ninja Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/invoiceninja.md",
+      "examples": "https://n8n.io/integrations/invoice-ninja-trigger/"
+    },
+    "jiraTrigger": {
+      "title": "Jira Trigger node documentation",
+      "description": "Learn how to use the Jira Trigger node in n8n. Follow technical documentation to integrate Jira Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/jira.md",
+      "examples": "https://n8n.io/integrations/jira-trigger/"
+    },
+    "jotFormTrigger": {
+      "title": "JotForm Trigger node documentation",
+      "description": "Learn how to use the JotForm Trigger node in n8n. Follow technical documentation to integrate JotForm Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/jotform.md",
+      "examples": "https://n8n.io/integrations/jotform-trigger/"
+    },
+    "kafkaTrigger": {
+      "title": "Kafka Trigger node documentation",
+      "description": "Learn how to use the Kafka Trigger node in n8n. Follow technical documentation to integrate Kafka Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/kafka.md",
+      "examples": "https://n8n.io/integrations/kafka-trigger/"
+    },
+    "keapTrigger": {
+      "title": "Keap Trigger node documentation",
+      "description": "Learn how to use the Keap Trigger node in n8n. Follow technical documentation to integrate Keap Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/keap.md",
+      "examples": "https://n8n.io/integrations/keap-trigger/"
+    },
+    "koboToolboxTrigger": {
+      "title": "KoboToolbox Trigger node documentation",
+      "description": "Learn how to use the KoboToolbox Trigger node in n8n. Follow technical documentation to integrate KoboToolbox Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/kobotoolbox.md",
+      "examples": "https://n8n.io/integrations/kobotoolbox-trigger/",
+      "note": "This node starts a workflow upon new submissions of a specified form. The trigger node handles the creation/deletion of the hook, so you don't need to do any setup in KoboToolbox.\n\nIt works the same way as the Get Submission operation in the [KoboToolbox](/integrations/builtin/app-nodes/n8n-nodes-base.kobotoolbox.md) node, including supporting the same reformatting options."
+    },
+    "lemlistTrigger": {
+      "title": "Lemlist Trigger node documentation",
+      "description": "Learn how to use the Lemlist Trigger node in n8n. Follow technical documentation to integrate Lemlist Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/lemlist.md",
+      "examples": "https://n8n.io/integrations/lemlist-trigger/",
+      "events": [
+        "*",
+        "Aircall Created",
+        "Aircall Done",
+        "Aircall Ended",
+        "Aircall Interested",
+        "Aircall Not Interested",
+        "Api Done",
+        "Api Failed",
+        "Api Interested",
+        "Api Not Interested",
+        "Attracted",
+        "Connection Issue",
+        "Contacted",
+        "Custom Domain Errors",
+        "Emails Bounced",
+        "Emails Clicked",
+        "Emails Failed",
+        "Emails Interested",
+        "Emails Not Interested",
+        "Emails Opened",
+        "Emails Replied",
+        "Emails Send Failed",
+        "Emails Sent",
+        "Emails Unsubscribed",
+        "Hooked",
+        "Interested",
+        "Lemwarm Paused",
+        "LinkedIn Interested",
+        "LinkedIn Invite Accepted",
+        "LinkedIn Invite Done",
+        "LinkedIn Invite Failed",
+        "LinkedIn Not Interested",
+        "LinkedIn Replied",
+        "LinkedIn Send Failed",
+        "LinkedIn Sent",
+        "LinkedIn Visit Done",
+        "LinkedIn Visit Failed",
+        "LinkedIn Voice Note Done",
+        "LinkedIn Voice Note Failed",
+        "Manual Interested",
+        "Manual Not Interested",
+        "Not Interested",
+        "Opportunities Done",
+        "Paused",
+        "Resumed",
+        "Send Limit Reached",
+        "Skipped",
+        "Warmed"
+      ]
+    },
+    "linearTrigger": {
+      "title": "Linear Trigger node documentation",
+      "description": "Learn how to use the Linear Trigger node in n8n. Follow technical documentation to integrate Linear Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/linear.md",
+      "examples": "https://n8n.io/integrations/linear-trigger/",
+      "events": [
+        "Comment Reaction",
+        "Cycle",
+        "Issue",
+        "Issue Comment",
+        "Issue Label",
+        "Project"
+      ]
+    },
+    "loneScaleTrigger": {
+      "title": "LoneScale Trigger node documentation",
+      "description": "Learn how to use the LoneScale Trigger node in n8n. Follow technical documentation to integrate LoneScale Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/lonescale.md",
+      "examples": "https://n8n.io/integrations/lonescale-trigger/",
+      "events": [
+        "On new LoneScale event"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.lonescale.md",
+        "examples": "https://n8n.io/integrations/lonescale-trigger/"
+      }
+    },
+    "mailChimpTrigger": {
+      "title": "Mailchimp Trigger node documentation",
+      "description": "Learn how to use the Mailchimp Trigger node in n8n. Follow technical documentation to integrate Mailchimp Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/mailchimp.md",
+      "examples": "https://n8n.io/integrations/mailchimp-trigger/"
+    },
+    "mailerLiteTrigger": {
+      "title": "MailerLite Trigger node documentation",
+      "description": "Learn how to use the MailerLite Trigger node in n8n. Follow technical documentation to integrate MailerLite Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/mailerlite.md",
+      "examples": "https://n8n.io/integrations/mailerlite-trigger/",
+      "events": [
+        "Campaign Sent",
+        "Subscriber Added to Group",
+        "Subscriber Automation Completed",
+        "Subscriber Automation Triggered",
+        "Subscriber Bounced",
+        "Subscriber Created",
+        "Subscriber Complained",
+        "Subscriber Removed from Group",
+        "Subscriber Unsubscribe",
+        "Subscriber Updated"
+      ]
+    },
+    "mailJetTrigger": {
+      "title": "Mailjet Trigger node documentation",
+      "description": "Learn how to use the Mailjet Trigger node in n8n. Follow technical documentation to integrate Mailjet Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/mailjet.md",
+      "examples": "https://n8n.io/integrations/mailjet-trigger/"
+    },
+    "mauticTrigger": {
+      "title": "Mautic Trigger node documentation",
+      "description": "Learn how to use the Mautic Trigger node in n8n. Follow technical documentation to integrate Mautic Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/mautic.md",
+      "examples": "https://n8n.io/integrations/mautic-trigger/",
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.mautic.md",
+        "examples": "https://n8n.io/integrations/mautic/"
+      }
+    },
+    "microsoftOneDriveTrigger": {
+      "title": "Microsoft OneDrive Trigger node documentation",
+      "description": "Learn how to use the Microsoft OneDrive Trigger node in n8n. Follow technical documentation to integrate Microsoft OneDrive Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/microsoft.md",
+      "examples": "https://n8n.io/integrations/microsoft-onedrive-trigger/",
+      "events": [
+        "On File Created",
+        "On File Updated",
+        "On Folder Created",
+        "On Folder Updates"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.microsoftonedrive.md",
+        "examples": "https://n8n.io/integrations/microsoft-onedrive-trigger/",
+        "api_docs": "https://learn.microsoft.com/en-us/onedrive/developer/rest-api/"
+      }
+    },
+    "microsoftOutlookTrigger": {
+      "title": "Microsoft Outlook Trigger node documentation",
+      "description": "Learn how to use the Microsoft Outlook Trigger node in n8n. Follow technical documentation to integrate Microsoft Outlook Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/microsoft.md",
+      "examples": "https://n8n.io/integrations/microsoft-outlook-trigger/",
+      "events": [
+        "Message Received"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.microsoftoutlook.md",
+        "examples": "https://n8n.io/integrations/microsoft-outlook-trigger/"
+      }
+    },
+    "mqttTrigger": {
+      "title": "MQTT Trigger node documentation",
+      "description": "Learn how to use the MQTT Trigger node in n8n. Follow technical documentation to integrate MQTT Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/mqtt.md",
+      "examples": "https://n8n.io/integrations/mqtt-trigger/"
+    },
+    "netlifyTrigger": {
+      "title": "Netlify Trigger node documentation",
+      "description": "Learn how to use the Netlify Trigger node in n8n. Follow technical documentation to integrate Netlify Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/netlify.md",
+      "examples": "https://n8n.io/integrations/netlify-trigger/",
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.netlify.md",
+        "examples": "https://n8n.io/integrations/netlify/"
+      }
+    },
+    "notionTrigger": {
+      "title": "Notion Trigger node documentation",
+      "description": "Learn how to use the Notion Trigger node in n8n. Follow technical documentation to integrate Notion Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/notion.md",
+      "examples": "https://n8n.io/integrations/notion-trigger-beta/",
+      "events": [
+        "Page added to database",
+        "Page updated in database"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.notion/index.md",
+        "examples": "https://n8n.io/integrations/notion-trigger/",
+        "api_docs": "https://developers.notion.com/"
+      }
+    },
+    "onfleetTrigger": {
+      "title": "Onfleet Trigger node documentation",
+      "description": "Learn how to use the Onfleet Trigger node in n8n. Follow technical documentation to integrate Onfleet Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/onfleet.md",
+      "examples": "https://n8n.io/integrations/onfleet-trigger/",
+      "events": [
+        "SMS recipient opt out",
+        "SMS recipient response missed",
+        "Task arrival",
+        "Task assigned",
+        "Task cloned",
+        "Task completed",
+        "Task created",
+        "Task delayed",
+        "Task ETA",
+        "Task failed",
+        "Task started",
+        "Task unassigned",
+        "Task updated",
+        "Worker created",
+        "Worker deleted",
+        "Worker duty"
+      ]
+    },
+    "payPalTrigger": {
+      "title": "PayPal Trigger node documentation",
+      "description": "Learn how to use the PayPal Trigger node in n8n. Follow technical documentation to integrate PayPal Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/paypal.md",
+      "examples": "https://n8n.io/integrations/paypal-trigger/"
+    },
+    "pipedriveTrigger": {
+      "title": "Pipedrive Trigger node documentation",
+      "description": "Learn how to use the Pipedrive Trigger node in n8n. Follow technical documentation to integrate Pipedrive Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/pipedrive.md",
+      "examples": "https://n8n.io/integrations/pipedrive-trigger/"
+    },
+    "postgresTrigger": {
+      "title": "Postgres Trigger node documentation",
+      "description": "Learn how to use the Postgres Trigger node in n8n. Follow technical documentation to integrate Postgres Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/postgres.md",
+      "examples": "https://n8n.io/integrations/postgres-trigger/",
+      "events": {
+        "listenAndCreateTriggerRule": {
+          "description": "Select **Listen and Create Trigger Rule**, then choose the events to listen for:",
+          "options": [
+            "Insert",
+            "Update",
+            "Delete"
+          ]
+        },
+        "listenToChannel": {
+          "description": "Select **Listen to Channel**, then enter a channel name that the node should monitor."
+        }
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.postgres/index.md",
+        "examples": "https://n8n.io/integrations/postgres-trigger/"
+      }
+    },
+    "postmarkTrigger": {
+      "title": "Postmark Trigger node documentation",
+      "description": "Learn how to use the Postmark Trigger node in n8n. Follow technical documentation to integrate Postmark Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/postmark.md",
+      "examples": "https://n8n.io/integrations/postmark-trigger/"
+    },
+    "pushcutTrigger": {
+      "title": "Pushcut Trigger node documentation",
+      "description": "Learn how to use the Pushcut Trigger node in n8n. Follow technical documentation to integrate Pushcut Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/pushcut.md",
+      "examples": "https://n8n.io/integrations/pushcut-trigger/",
+      "configureAction": "Follow these steps to configure your Pushcut Trigger node with your Pushcut app.\n\n1. In your Pushcut app, select a notification from the **Notifications** screen.\n2. Select the **Add Action** button.\n3. Enter an action name in the **Label** field.\n4. Select the **Server** tab.\n5. Select the **Integration** tab.\n6. Select **Integration Trigger**.\n7. In n8n, enter a name for the action and select **Test step**.\n8. Select this action under the **Select Integration Trigger** screen in your Pushcut app.\n9. Select **Done** in the top right to save the action."
+    },
+    "rabbitMqTrigger": {
+      "title": "RabbitMQ Trigger node documentation",
+      "description": "Learn how to use the RabbitMQ Trigger node in n8n. Follow technical documentation to integrate RabbitMQ Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/rabbitmq.md",
+      "examples": "https://n8n.io/integrations/rabbitmq-trigger/",
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.rabbitmq.md",
+        "examples": "https://n8n.io/integrations/rabbitmq-trigger/"
+      }
+    },
+    "redisTrigger": {
+      "title": "Redis Trigger node documentation",
+      "description": "Learn how to use the Redis Trigger node in n8n. Follow technical documentation to integrate Redis Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/redis.md",
+      "examples": "https://n8n.io/integrations/redis-trigger/",
+      "description_extended": "Use the Redis Trigger node to subscribe to a Redis channel. The workflow starts whenever the channel receives a new message."
+    },
+    "salesforceTrigger": {
+      "title": "Salesforce Trigger node documentation",
+      "description": "Learn how to use the Salesforce Trigger node in n8n. Follow technical documentation to integrate Salesforce Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/salesforce.md",
+      "examples": "https://n8n.io/integrations/salesforce-trigger/",
+      "events": [
+        "On Account Created",
+        "On Account Updated",
+        "On Attachment Created",
+        "On Attachment Updated",
+        "On Case Created",
+        "On Case Updated",
+        "On Contact Created",
+        "On Contact Updated",
+        "On Custom Object Created",
+        "On Custom Object Updated",
+        "On Lead Created",
+        "On Lead Updated",
+        "On Opportunity Created",
+        "On Opportunity Updated",
+        "On Task Created",
+        "On Task Updated",
+        "On User Created",
+        "On User Updated"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.salesforce.md",
+        "examples": "https://n8n.io/integrations/salesforce-trigger/"
+      }
+    },
+    "seaTableTrigger": {
+      "title": "SeaTable Trigger node documentation",
+      "description": "Learn how to use the SeaTable Trigger node in n8n. Follow technical documentation to integrate SeaTable Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/seatable.md",
+      "examples": "https://n8n.io/integrations/seatable-trigger/"
+    },
+    "shopifyTrigger": {
+      "title": "Shopify Trigger node documentation",
+      "description": "Learn how to use the Shopify Trigger node in n8n. Follow technical documentation to integrate Shopify Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/shopify.md",
+      "examples": "https://n8n.io/integrations/shopify-trigger/"
+    },
+    "slackTrigger": {
+      "title": "Slack Trigger node documentation",
+      "description": "Learn how to use the Slack Trigger node in n8n. Follow technical documentation to integrate Slack Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/slack.md",
+      "examples": "https://n8n.io/integrations/slack-trigger/",
+      "events": [
+        "Any Event",
+        "Bot / App Mention",
+        "File Made Public",
+        "File Shared",
+        "New Message Posted to Channel",
+        "New Public Channel Created",
+        "New User",
+        "Reaction Added"
+      ],
+      "parameters": {
+        "watchWholeWorkspace": "Whether the node should watch for the selected **Events** in all channels in the workspace (turned on) or not (turned off, default).\n\n///warning | Caution\nThis will use one execution for every event in any channel your bot or app is in. Use with caution!\n///",
+        "channelToWatch": "Select the channel your node should watch for the selected **Events**. This parameter only appears if you don't turn on **Watch Whole Workspace**. You can select a channel:\n    * **From list**: The node uses your credential to look up a list of channels in the workspace so you can select the channel you want.\n    * **By ID**: Enter the ID of a channel you want to watch. Slack displays the channel ID at the bottom of the channel details with a one-click copy button.\n    * **By URL**: Enter the URL of the channel you want to watch, formatted as https://app.slack.com/client/<channel-address>.",
+        "downloadFiles": "Whether to download files and use them in the node's output (turned on) or not (turned off, default). Use this parameter with the **File Made Public** and **File Shared** events."
+      },
+      "options": {
+        "resolveIds": "Whether to resolve the IDs to their respective names and return them (turned on) or not (turned off, default).",
+        "usernamesOrIdsToIgnore": "Select usernames or enter a comma-separated string of encoded user IDs to ignore events from. Choose from the list, or specify IDs using an [expression](/code/expressions.md)."
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.slack.md",
+        "examples": "https://n8n.io/integrations/slack-trigger/",
+        "api_docs": "https://api.slack.com/apis/connections/events-api"
+      },
+      "required_scopes": "To use this node, you need to create an application in Slack and enable event subscriptions. Refer to [Slack credentials | Slack Trigger configuration](/integrations/builtin/credentials/slack.md#slack-trigger-configuration) for more information.\n\nYou must add the appropriate scopes to your Slack app for this trigger node to work.\n\nThe node requires scopes for the [conversations.list](https://api.slack.com/methods/conversations.list){:target=blank .external-link} and [users.list](https://api.slack.com/methods/users.list){:target=blank .external-link} methods at minimum. Check out the [Scopes | Slack credentials](/integrations/builtin/credentials/slack.md#scopes) list for a more complete list of scopes.",
+      "common_issues": {
+        "workflowOnlyWorksInTestingOrProduction": "Slack only allows you to register a single webhook per app. This means that you can't switch from using the testing URL to the production URL (and vice versa) without reconfiguring the registered webhook URL.\n\nYou may have trouble with this if you try to test a workflow that's also active in production. Slack will only send events to one of the two webhook URLs, so the other will never receive event notifications.\n\nTo work around this, you can disable your workflow when testing:\n\n/// warning | Halts production traffic\nThis temporarily disables your production workflow for testing. Your workflow will no longer receive production traffic while it's deactivated.\n///\n\n1. Go to your workflow page.\n2. Toggle the **Active** switch in the top panel to disable the workflow temporarily.\n3. Edit the **Request URL** in your the [Slack Trigger configuration](/integrations/builtin/credentials/slack.md#slack-trigger-configuration) to use the testing webhook URL instead of the production webhook URL.\n4. Test your workflow using the test webhook URL.\n5. When you finish testing, edit the **Request URL** in your the [Slack Trigger configuration](/integrations/builtin/credentials/slack.md#slack-trigger-configuration) to use the production webhook URL instead of the testing webhook URL.\n6. Toggle the **Inactive** toggle to enable the workflow again. The production webhook URL should resume working.",
+        "tokenExpired": "--8<-- \"_snippets/integrations/builtin/credentials/slack/token-rotation.md\""
+      }
+    },
+    "stravaTrigger": {
+      "title": "Strava Trigger node documentation",
+      "description": "Learn how to use the Strava Trigger node in n8n. Follow technical documentation to integrate Strava Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/strava.md",
+      "examples": "https://n8n.io/integrations/strava-trigger/",
+      "events": {
+        "all": [
+          "[All]",
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "activity": [
+          "[All]",
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "athlete": [
+          "[All]",
+          "Created",
+          "Deleted",
+          "Updated"
+        ]
+      }
+    },
+    "stripeTrigger": {
+      "title": "Stripe Trigger node documentation",
+      "description": "Learn how to use the Stripe Trigger node in n8n. Follow technical documentation to integrate Stripe Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/stripe.md",
+      "examples": "https://n8n.io/integrations/stripe-trigger/"
+    },
+    "surveyMonkeyTrigger": {
+      "title": "SurveyMonkey Trigger node documentation",
+      "description": "Learn how to use the SurveyMonkey Trigger node in n8n. Follow technical documentation to integrate SurveyMonkey Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/surveymonkey.md",
+      "examples": "https://n8n.io/integrations/surveymonkey-trigger/"
+    },
+    "taigaTrigger": {
+      "title": "Taiga Trigger node documentation",
+      "description": "Learn how to use the Taiga Trigger node in n8n. Follow technical documentation to integrate Taiga Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/taiga.md",
+      "examples": "https://n8n.io/integrations/taiga-trigger/"
+    },
+    "theHive5Trigger": {
+      "title": "TheHive 5 Trigger node documentation",
+      "description": "Learn how to use the TheHive 5 Trigger node in n8n. Follow technical documentation to integrate TheHive 5 Trigger node into your workflows.",
+      "note": "n8n provides two nodes for TheHive. Use this node (TheHive 5 Trigger) if you want to use TheHive's version 5 API. If you want to use version 3 or 4, use [TheHive Trigger](/integrations/builtin/trigger-nodes/n8n-nodes-base.thehivetrigger.md).",
+      "examples": "https://n8n.io/integrations/thehive-5-trigger/",
+      "events": {
+        "alert": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "case": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "comment": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "observable": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "page": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "task": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "taskLog": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ]
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.thehive5.md",
+        "api_docs": "https://docs.strangebee.com/"
+      },
+      "configureWebhook": "To configure the webhook for your TheHive instance:\n\n1. Copy the testing and production webhook URLs from TheHive Trigger node.\n2. Add the following lines to the application.conf file. This is TheHive configuration file:\n\n\nnotification.webhook.endpoints = [\n\t\t{\n\t\t\tname: TESTING_WEBHOOK_NAME\n\t\t\turl: TESTING_WEBHOOK_URL\n\t\t\tversion: 0\n\t\t\twsConfig: {}\n\t\t\tincludedTheHiveOrganisations: [\"ORGANIZATION_NAME\"]\n\t\t\texcludedTheHiveOrganisations: []\n\t\t},\n\t\t{\n\t\t\tname: PRODUCTION_WEBHOOK_NAME\n\t\t\turl: PRODUCTION_WEBHOOK_URL\n\t\t\tversion: 0\n\t\t\twsConfig: {}\n\t\t\tincludedTheHiveOrganisations: [\"ORGANIZATION_NAME\"]\n\t\t\texcludedTheHiveOrganisations: []\n\t\t}\n\t]\n\n\n3. Replace TESTING_WEBHOOK_URL and PRODUCTION_WEBHOOK_URL with the URLs you copied in the previous step.\n4. Replace TESTING_WEBHOOK_NAME and PRODUCTION_WEBHOOK_NAME with your preferred endpoint names.\n5. Replace ORGANIZATION_NAME with your organization name.\n6. Execute the following cURL command to enable notifications:\n\nsh\n\tcurl -XPUT -uTHEHIVE_USERNAME:THEHIVE_PASSWORD -H 'Content-type: application/json' THEHIVE_URL/api/config/organisation/notification -d '\n\t{\n\t\t\"value\": [\n\t\t\t{\n\t\t\t\"delegate\": false,\n\t\t\t\"trigger\": { \"name\": \"AnyEvent\"},\n\t\t\t\"notifier\": { \"name\": \"webhook\", \"endpoint\": \"TESTING_WEBHOOK_NAME\" }\n\t\t\t},\n\t\t\t{\n\t\t\t\"delegate\": false,\n\t\t\t\"trigger\": { \"name\": \"AnyEvent\"},\n\t\t\t\"notifier\": { \"name\": \"webhook\", \"endpoint\": \"PRODUCTION_WEBHOOK_NAME\" }\n\t\t\t}\n\t\t]\n\t}'"
+    },
+    "theHiveTrigger": {
+      "title": "TheHive Trigger node documentation",
+      "description": "On this page, you'll find a list of events the TheHive Trigger node can respond to and links to more resources.",
+      "note": "n8n provides two nodes for TheHive. Use this node (TheHive Trigger) if you want to use TheHive's version 3 or 4 API. If you want to use version 5, use [TheHive 5 Trigger](/integrations/builtin/trigger-nodes/n8n-nodes-base.thehive5trigger.md).",
+      "examples": "https://n8n.io/integrations/thehive-trigger/",
+      "events": {
+        "alert": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "case": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "log": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "observable": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ],
+        "task": [
+          "Created",
+          "Deleted",
+          "Updated"
+        ]
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.thehive.md",
+        "examples": "https://n8n.io/integrations/thehive-trigger/",
+        "api_docs_v3": "https://docs.thehive-project.org/thehive/legacy/thehive3/api/",
+        "api_docs_v4": "https://docs.thehive-project.org/cortex/api/api-guide/"
+      },
+      "configureWebhook": "To configure the webhook for your TheHive instance:\n\n1. Copy the testing and production webhook URLs from TheHive Trigger node.\n2. Add the following lines to the application.conf file. This is TheHive configuration file:\n\n\nnotification.webhook.endpoints = [\n\t\t{\n\t\t\tname: TESTING_WEBHOOK_NAME\n\t\t\turl: TESTING_WEBHOOK_URL\n\t\t\tversion: 0\n\t\t\twsConfig: {}\n\t\t\tincludedTheHiveOrganisations: [\"ORGANIZATION_NAME\"]\n\t\t\texcludedTheHiveOrganisations: []\n\t\t},\n\t\t{\n\t\t\tname: PRODUCTION_WEBHOOK_NAME\n\t\t\turl: PRODUCTION_WEBHOOK_URL\n\t\t\tversion: 0\n\t\t\twsConfig: {}\n\t\t\tincludedTheHiveOrganisations: [\"ORGANIZATION_NAME\"]\n\t\t\texcludedTheHiveOrganisations: []\n\t\t}\n\t]\n\n\n3. Replace TESTING_WEBHOOK_URL and PRODUCTION_WEBHOOK_URL with the URLs you copied in the previous step.\n4. Replace TESTING_WEBHOOK_NAME and PRODUCTION_WEBHOOK_NAME with your preferred endpoint names.\n5. Replace ORGANIZATION_NAME with your organization name.\n6. Execute the following cURL command to enable notifications:\n\nsh\n\tcurl -XPUT -uTHEHIVE_USERNAME:THEHIVE_PASSWORD -H 'Content-type: application/json' THEHIVE_URL/api/config/organisation/notification -d '\n\t{\n\t\t\"value\": [\n\t\t\t{\n\t\t\t\"delegate\": false,\n\t\t\t\"trigger\": { \"name\": \"AnyEvent\"},\n\t\t\t\"notifier\": { \"name\": \"webhook\", \"endpoint\": \"TESTING_WEBHOOK_NAME\" }\n\t\t\t},\n\t\t\t{\n\t\t\t\"delegate\": false,\n\t\t\t\"trigger\": { \"name\": \"AnyEvent\"},\n\t\t\t\"notifier\": { \"name\": \"webhook\", \"endpoint\": \"PRODUCTION_WEBHOOK_NAME\" }\n\t\t\t}\n\t\t]\n\t}'"
+    },
+    "togglTrigger": {
+      "title": "Toggl Trigger node documentation",
+      "description": "Learn how to use the Toggl Trigger node in n8n. Follow technical documentation to integrate Toggl Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/toggl.md",
+      "examples": "https://n8n.io/integrations/toggl-trigger/"
+    },
+    "trelloTrigger": {
+      "title": "Trello Trigger node documentation",
+      "description": "Learn how to use the Trello Trigger node in n8n. Follow technical documentation to integrate Trello Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/trello.md",
+      "examples": "https://n8n.io/integrations/trello-trigger/",
+      "findModelId": "The model ID is the ID of any model in Trello. Depending on the use-case, it could be the User ID, List ID, and so on.\n\nFor this specific example, the List ID would be the Model ID:\n\n1. Open the Trello board that contains the list.\n2. If the list doesn't have any cards, add a card to the list.\n3. Open the card, add .json at the end of the URL, and press enter.\n4. In the JSON file, you will see a field called idList.\n5. Copy idListand paste it in the **Model ID** field in n8n."
+    },
+    "twilioTrigger": {
+      "title": "Twilio Trigger node documentation",
+      "description": "Use the Twilio Trigger node to respond to events in [Twilio](https://www.twilio.com){:target=_blank .external-link} and integrate Twilio with other applications. n8n has built-in support for a wide range of Twilio events, including new SMS and calls.",
+      "credentials": "/integrations/builtin/credentials/twilio.md",
+      "examples": "https://n8n.io/integrations/twilio-trigger/",
+      "events": [
+        "On New SMS",
+        "On New Call"
+      ],
+      "note": "It can take Twilio up to thirty minutes to generate a summary for a completed call.",
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.twilio.md",
+        "examples": "https://n8n.io/integrations/twilio/",
+        "api_docs": "https://www.twilio.com/docs"
+      }
+    },
+    "typeFormTrigger": {
+      "title": "Typeform Trigger node documentation",
+      "description": "Learn how to use the Typeform Trigger node in n8n. Follow technical documentation to integrate Typeform Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/typeform.md",
+      "examples": "https://n8n.io/integrations/typeform-trigger/"
+    },
+    "venafiTlsProtectCloudTrigger": {
+      "title": "Venafi TLS Protect Cloud Trigger node documentation",
+      "description": "Learn how to use the Venafi TLS Protect Cloud Trigger node in n8n. Follow technical documentation to integrate Venafi TLS Protect Cloud Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/venafitlsprotectcloud.md",
+      "examples": "https://n8n.io/integrations/venafi-tls-protect-cloud-trigger/",
+      "description_extended": "Use the n8n Venafi TLS Protect Cloud Trigger node to start a workflow in n8n in response to events in the [cloud-based Venafi TLS Protect](https://vaas.venafi.com/){:target=_blank} service."
+    },
+    "webflowTrigger": {
+      "title": "Webflow Trigger node documentation",
+      "description": "Learn how to use the Webflow Trigger node in n8n. Follow technical documentation to integrate Webflow Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/webflow.md",
+      "examples": "https://n8n.io/integrations/webflow-trigger/"
+    },
+    "whatsAppTrigger": {
+      "title": "WhatsApp Trigger node documentation",
+      "description": "Use the WhatsApp Trigger node to respond to events in WhatsApp and integrate WhatsApp with other applications. n8n has built-in support for a wide range of WhatsApp events, including account, message, and phone number events.",
+      "credentials": "/integrations/builtin/credentials/whatsapp.md",
+      "examples": "https://n8n.io/integrations/whatsapp-trigger/",
+      "events": [
+        "Account Review Update",
+        "Account Update",
+        "Business Capability Update",
+        "Message Template Quality Update",
+        "Message Template Status Update",
+        "Messages",
+        "Phone Number Name Update",
+        "Phone Number Quality Update",
+        "Security",
+        "Template Category Update"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.whatsapp/index.md",
+        "examples": "https://n8n.io/integrations/whatsapp-trigger/",
+        "api_docs": "https://developers.facebook.com/docs/whatsapp/cloud-api"
+      },
+      "common_issues": {
+        "workflowOnlyWorksInTestingOrProduction": "WhatsApp only allows you to register a single webhook per app. This means that every time you switch from using the testing URL to the production URL (and vice versa), WhatsApp overwrites the registered webhook URL.\n\nYou may have trouble with this if you try to test a workflow that's also active in production. WhatsApp will only send events to one of the two webhook URLs, so the other will never receive event notifications.\n\nTo work around this, you can disable your workflow when testing:\n\n/// warning | Halts production traffic\nThis workaround temporarily disables your production workflow for testing. Your workflow will no longer receive production traffic while it's deactivated.\n///\n\n1. Go to your workflow page.\n2. Toggle the **Active** switch in the top panel to disable the workflow temporarily.\n3. Test your workflow using the test webhook URL.\n4. When you finish testing, toggle the **Inactive** toggle to enable the workflow again. The production webhook URL should resume working."
+      }
+    },
+    "wiseTrigger": {
+      "title": "Wise Trigger node documentation",
+      "description": "Learn how to use the Wise Trigger node in n8n. Follow technical documentation to integrate Wise Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/wise.md",
+      "examples": "https://n8n.io/integrations/wise-trigger/",
+      "events": [
+        "Triggered every time a balance account is credited",
+        "Triggered every time a balance account is credited or debited",
+        "Triggered every time a transfer's list of active cases is updated",
+        "Triggered every time a transfer's status is updated"
+      ]
+    },
+    "wooCommerceTrigger": {
+      "title": "WooCommerce Trigger node documentation",
+      "description": "Learn how to use the WooCommerce Trigger node in n8n. Follow technical documentation to integrate WooCommerce Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/woocommerce.md",
+      "examples": "https://n8n.io/integrations/woocommerce-trigger/",
+      "events": [
+        "coupon.created",
+        "coupon.updated",
+        "coupon.deleted",
+        "customer.created",
+        "customer.updated",
+        "customer.deleted",
+        "order.created",
+        "order.updated",
+        "order.deleted",
+        "product.created",
+        "product.updated",
+        "product.deleted"
+      ]
+    },
+    "workableTrigger": {
+      "title": "Workable Trigger node documentation",
+      "description": "Use the Workable Trigger node to respond to events in the [Workable](https://www.workable.com/){:target=_blank .external-link} recruiting platform and integrate Workable with other applications. n8n has built-in support for a wide range of Workable events, including candidate created and moved.",
+      "credentials": "/integrations/builtin/credentials/workable.md",
+      "examples": "https://n8n.io/integrations/workable-trigger/",
+      "events": [
+        "Candidate Created",
+        "Candidate Moved"
+      ],
+      "related_resources": {
+        "examples": "https://n8n.io/integrations/workable-trigger/",
+        "api_docs": "https://developers.workable.com/"
+      }
+    },
+    "wufooTrigger": {
+      "title": "Wufoo Trigger node documentation",
+      "description": "Learn how to use the Wufoo Trigger node in n8n. Follow technical documentation to integrate Wufoo Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/wufoo.md",
+      "examples": "https://n8n.io/integrations/wufoo-trigger/"
+    },
+    "zendeskTrigger": {
+      "title": "Zendesk Trigger node documentation",
+      "description": "Learn how to use the Zendesk Trigger node in n8n. Follow technical documentation to integrate Zendesk Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/zendesk.md",
+      "examples": "https://n8n.io/integrations/zendesk-trigger/"
+    },
+    "facebookTrigger": {
+      "title": "Facebook Trigger",
+      "description": "Use the Facebook Trigger node to trigger a workflow when events occur in Facebook.",
+      "credentials": "/integrations/builtin/credentials/facebookapp.md",
+      "examples": "https://n8n.io/integrations/facebook-trigger/",
+      "objects": {
+        "adAccount": {
+          "title": "Facebook Trigger Ad Account object documentation",
+          "description": "Learn how to use the Ad Account object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Ad Account object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Ad Account** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available Ad Account events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include:\n    * **In Process Ad Objects**: Notifies you when a campaign, ad set, or ad exits the IN_PROCESS status. Refer to Meta's [Post-processing for Ad Creation and Edits](https://developers.facebook.com/docs/marketing-api/using-the-api/post-processing/){:target=_blank .external-link} for more information.\n    * **With Issues Ad Objects**: Notifies you when a campaign, ad set, or ad under the ad account receives the WITH_ISSUES status.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_webhooks": "https://developers.facebook.com/docs/graph-api/webhooks/getting-started/webhooks-for-ad-accounts",
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/ad-account/"
+          }
+        },
+        "application": {
+          "title": "Facebook Trigger Application object documentation",
+          "description": "Learn how to use the Application object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Application object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Application** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include:\n    * **Add Account**\n    * **Ads Rules Engine**\n    * **Async Requests**\n    * **Async Sessions**    \n    * **Group Install**\n    * **Oe Reseller Onboarding Request Created**\n    * **Plugin Comment**\n    * **Plugin Comment Reply**\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/application/"
+          }
+        },
+        "certificateTransparency": {
+          "title": "Facebook Trigger Certificate Transparency object documentation",
+          "description": "Learn how to use the Certificate Transparency object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Certificate Transparency object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Certificate Transparency** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include:\n    * **Certificate**: Notifies you when someone issues a new certificate for your subscribed domains. You'll need to subscribe your domain for certificate alerts.\n    * **Phishing**: Notifies you when someone issues a new certificate that may be phishing one of your legitimate subscribed domains.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.\n\nFor these alerts, you'll need to subscribe your domain to the relevant alerts:\n\n* Refer to [Certificate Alerts](https://developers.facebook.com/docs/certificate-transparency-api#certificate-alerts-subscribing){:target=_blank .external-link} for Certificate Alerts subscriptions.\n* Refer to [Phishing Alerts](https://developers.facebook.com/docs/certificate-transparency-api#phishing-alerts-subscribing){:target=_blank .external-link} for Phishing Alerts subscriptions.",
+          "related_resources": {
+            "api_docs_webhooks": "https://developers.facebook.com/docs/graph-api/webhooks/getting-started/webhooks-for-certificate-transparency",
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/certificate-transparency/"
+          }
+        },
+        "group": {
+          "title": "Facebook Trigger Group object documentation",
+          "description": "Learn how to use the Group object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Group object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Group** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/workplace/reference/webhooks/#groups"
+          }
+        },
+        "instagram": {
+          "title": "Facebook Trigger Instagram object documentation",
+          "description": "Learn how to use the Instagram object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Instagram object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Instagram** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include:\n    * **Comments**: Notifies you when anyone comments on an IG Media owned by your app's Instagram user.\n    * **Messaging Handover**\n    * **Mentions**: Notifies you whenever an Instagram user @mentions an Instagram Business or Creator Account in a comment or caption.\n    * **Messages**: Notifies you when anyone messages your app's Instagram user.\n    * **Messaging Seen**: Notifies you when someone sees a message sent by your app's Instagram user.\n    * **Standby**\n    * **Story Insights**: Notifies you one hour after a story expires with metrics describing interactions on a story.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_webhooks": "https://developers.facebook.com/docs/graph-api/webhooks/getting-started/webhooks-for-instagram",
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/instagram/"
+          }
+        },
+        "link": {
+          "title": "Facebook Trigger Link object documentation",
+          "description": "Learn how to use the Link object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Link object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Link** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/workplace/reference/webhooks/#links"
+          }
+        },
+        "page": {
+          "title": "Facebook Trigger Page object documentation",
+          "description": "Learn how to use the Page object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Page object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "prerequisites": "This Object requires some configuration in your app and page before you can use the trigger:\n\n1. At least one page admin needs to grant the manage_pages permission to your app.\n2. The page admin needs to have at least moderator privileges. If they don't, they won't receive all content.\n3. You'll also need to add the app to your page, and you may need to go to the [Graph API explorer](https://developers.facebook.com/tools/explorer/){:target=_blank .external-link} and execute this call with your app token:\n\n    \n{page-id}/subscribed_apps?subscribed_fields=feed\n",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Page** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include individual profile fields, as well as:\n    * **Feed**: Describes most changes to a page's feed, including posts, likes, shares, and so on.\n    * **Leadgen**: Notifies you when a page's lead generation settings change.\n    * **Live Videos**: Notifies you when a page's live video status changes.\n    * **Mention**: Notifies you when new mentions in pages, comments, and so on occur.\n    * **Merchant Review**: Notifies you when a page's merchant review settings change.\n    * **Page Change Proposal**: Notifies you when Facebook suggests proposed changes for your Facebook Page.\n    * **Page Upcoming Change**: Notifies you about upcoming changes that will occur on your Facebook Page. Facebook has suggested these changes and they may have a deadline to accept or reject before automatically taking effect.\n    * **Product Review**: Notifies you when a page's product review settings change.\n    * **Ratings**: Notifies you when a page's ratings change, including new ratings or when a user comments on or reacts to a rating.\n    * **Videos**: Notifies you when the encoding status of a video on a page changes.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_webhooks": "https://developers.facebook.com/docs/graph-api/webhooks/getting-started/webhooks-for-pages",
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/page/"
+          }
+        },
+        "permissions": {
+          "title": "Facebook Trigger Permissions object documentation",
+          "description": "Learn how to use the Permissions object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Permissions object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Permissions** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in.\n5. In **Options**, choose whether to turn on the toggle to **Include Values**. When turned on, the node includes the new values for the changes.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/permissions/"
+          }
+        },
+        "user": {
+          "title": "Facebook Trigger User object documentation",
+          "description": "Learn how to use the User object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's User object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **User** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in.\n5. In **Options**, choose whether to turn on the toggle to **Include Values**. When turned on, the node includes the new values for the changes.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/user/"
+          }
+        },
+        "whatsAppBusinessAccount": {
+          "title": "Facebook Trigger WhatsApp Business Account object documentation",
+          "description": "Learn how to use the WhatsApp Business Account object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's WhatsApp Business Account object into your workflows.",
+          "warning": "n8n recommends using the [WhatsApp Trigger node](/integrations/builtin/trigger-nodes/n8n-nodes-base.whatsapptrigger.md) with the [WhatsApp credentials](/integrations/builtin/credentials/whatsapp.md) instead of the Facebook Trigger node. That trigger node includes twice the events to subscribe to.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "prerequisites": "This Object requires some configuration in your app and WhatsApp account before you can use the trigger:\n\n1. Subscribe your app under your WhatsApp business account. You must subscribe an app owned by your business. Apps shared with your business can't receive webhook notifications.\n2. If you are working as a Solution Partner, make sure your app has completed App Review and requested the whatsapp_business_management permission.",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **WhatsApp Business Account** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in. Options include:\n    * **Message Template Status Update**\n    * **Phone Number Name Update**\n    * **Phone Number Quality Update**\n    * **Account Review Update**\n    * **Account Update**\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_webhooks": "https://developers.facebook.com/docs/graph-api/webhooks/getting-started/webhooks-for-whatsapp",
+            "api_docs_reference": "https://developers.facebook.com/docs/graph-api/webhooks/reference/whatsapp-business-account/"
+          }
+        },
+        "workplaceSecurity": {
+          "title": "Facebook Trigger Workplace Security object documentation",
+          "description": "Learn how to use the Workplace Security object of the Facebook Trigger node in n8n. Follow technical documentation to integrate the Facebook Trigger node's Workplace Security object into your workflows.",
+          "credentials": "/integrations/builtin/credentials/facebookapp.md",
+          "examples": "https://n8n.io/integrations/facebook-trigger/",
+          "triggerConfiguration": "To configure the trigger with this Object:\n\n1. Select the **Credential to connect with**. Select an existing or create a new [Facebook App credential](/integrations/builtin/credentials/facebookapp.md).\n2. Enter the **APP ID** of the app connected to your credential. Refer to the [Facebook App credential](/integrations/builtin/credentials/facebookapp.md) documentation for more information.\n3. Select **Workplace Security** as the **Object**.\n4. **Field Names or IDs**: By default, the node will trigger on all the available events using the * wildcard filter. If you'd like to limit the events, use the X to remove the star and use the dropdown or an expression to select the updates you're interested in.\n5. In **Options**, turn on the toggle to **Include Values**. This Object type fails without the option enabled.",
+          "related_resources": {
+            "api_docs_reference": "https://developers.facebook.com/docs/workplace/reference/webhooks/#security"
+          }
+        }
+      },
+      "related_resources_main": {
+        "examples": "https://n8n.io/integrations/facebook-trigger/",
+        "api_docs": "https://developers.facebook.com/docs/graph-api/webhooks/reference"
+      }
+    },
+    "gmailTrigger": {
+      "title": "Gmail Trigger node documentation",
+      "description": "Learn how to use the Gmail Trigger node in n8n. Follow technical documentation to integrate Gmail Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/google/index.md",
+      "examples": "https://n8n.io/integrations/gmail-trigger/",
+      "events": [
+        "Message Received"
+      ],
+      "parameters": {
+        "credentialToConnectWith": "Select or create a new Google credential to use for the trigger. Refer to [Google credentials](/integrations/builtin/credentials/google/index.md) for more information on setting up a new credential.",
+        "pollTimes": "Select a poll **Mode** to set how often to trigger the poll. Your **Mode** selection will add or remove relevant fields. Refer to [Poll Mode options](/integrations/builtin/trigger-nodes/n8n-nodes-base.gmailtrigger/poll-mode-options.md) to configure the parameters for each mode type.",
+        "simplify": "Choose whether to return a simplified version of the response (turned on, default) or the raw data (turned off).\n    * The simplified version returns email message IDs, labels, and email headers, including: From, To, CC, BCC, and Subject."
+      },
+      "nodeFilters": {
+        "includeSpamAndTrash": "Select whether the node should trigger on new messages in the Spam and Trash folders (turned on) or not (turned off).",
+        "labelNamesOrIds": "Only trigger on messages with the selected labels added to them. Select the Label names you want to apply or enter an expression to specify IDs. The dropdown populates based on the **Credential** you selected.",
+        "search": "Enter Gmail search refine filters, like from:, to trigger the node on the filtered conditions only. Refer to [Refine searches in Gmail](https://support.google.com/mail/answer/7190?hl=en){:target=_blank .external-link} for more information.",
+        "readStatus": "Choose whether to receive **Unread and read emails**, **Unread emails only** (default), or **Read emails only**.",
+        "sender": "Enter an email or a part of a sender name to trigger only on messages from that sender."
+      },
+      "related_resources": {
+        "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.gmail/index.md",
+        "examples": "https://n8n.io/integrations/gmail-trigger/",
+        "api_docs": "https://developers.google.com/gmail/api/guides"
+      },
+      "common_issues": "/integrations/builtin/trigger-nodes/n8n-nodes-base.gmailtrigger/common-issues.md",
+      "pollModeOptions": "/integrations/builtin/trigger-nodes/n8n-nodes-base.gmailtrigger/poll-mode-options.md"
+    },
+    "googleDriveTrigger": {
+      "title": "Google Drive Trigger node documentation",
+      "description": "Learn how to use the Google Drive Trigger node in n8n. Follow technical documentation to integrate Google Drive Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/google/index.md",
+      "examples": "https://n8n.io/integrations/google-drive-trigger/",
+      "note": "On manual executions this node will return the last event matching its search criteria. If no event matches the criteria (for example because you are watching for files to be created but no files have been created so far), an error is thrown. Once saved and activated, the node will regularly check for any matching events and will trigger your workflow for each event found.",
+      "common_issues": "/integrations/builtin/trigger-nodes/n8n-nodes-base.googledrivetrigger/common-issues.md"
+    },
+    "googleSheetsTrigger": {
+      "title": "Google Sheets Trigger node documentation",
+      "description": "Learn how to use the Google Sheets Trigger node in n8n. Follow technical documentation to integrate Google Sheets Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/google/index.md",
+      "examples": "https://n8n.io/integrations/google-sheets-trigger/",
+      "events": [
+        "Row added",
+        "Row updated",
+        "Row added or updated"
+      ],
+      "related_resources": {
+        "api_docs": "https://developers.google.com/sheets/api"
+      },
+      "app_node": "/integrations/builtin/app-nodes/n8n-nodes-base.googlesheets/index.md",
+      "common_issues": "/integrations/builtin/trigger-nodes/n8n-nodes-base.googlesheetstrigger/common-issues.md"
+    },
+    "telegramTrigger": {
+      "title": "Telegram Trigger node documentation",
+      "description": "Learn how to use the Telegram Trigger node in n8n. Follow technical documentation to integrate Telegram Trigger node into your workflows.",
+      "credentials": "/integrations/builtin/credentials/telegram.md",
+      "examples": "https://n8n.io/integrations/telegram-trigger/",
+      "events": [
+        "*****",
+        "Business Connection",
+        "Business Message",
+        "Callback Query",
+        "Channel Post",
+        "Chat Boost",
+        "Chat Join Request",
+        "Chat Member",
+        "Chosen Inline Result",
+        "Deleted Business Messages",
+        "Edited Business Message",
+        "Edited Channel Post",
+        "Edited Message",
+        "Inline Query",
+        "Message",
+        "Message Reaction",
+        "Message Reaction Count",
+        "My Chat Member",
+        "Poll",
+        "Poll Answer",
+        "Pre-Checkout Query",
+        "Purchased Paid Media",
+        "Removed Chat Boost",
+        "Shipping Query"
+      ],
+      "related_resources": {
+        "app_node": "/integrations/builtin/credentials/telegram.md",
+        "examples": "https://n8n.io/integrations/telegram-trigger/",
+        "api_docs": "https://core.telegram.org/bots/api"
+      },
+      "common_issues": "/integrations/builtin/trigger-nodes/n8n-nodes-base.telegramtrigger/common-issues.md"
+    }
+  }

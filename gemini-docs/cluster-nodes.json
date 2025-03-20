@@ -1,0 +1,3068 @@
+{
+    "cluster-nodes": {
+      "index": {
+        "title": "Cluster nodes",
+        "description": "Understand cluster nodes in n8n, and browse the cluster nodes library.",
+        "contentType": "overview"
+      },
+      "root-nodes": {
+        "index": {
+          "title": "Root nodes",
+          "description": "Understand root nodes in n8n, and browse the root nodes library.",
+          "contentType": "overview"
+        },
+        "n8n-nodes-langchain.chainllm": {
+          "title": "Basic LLM Chain node documentation",
+          "description": "Learn how to use the Basic LLM Chain node in n8n. Follow technical documentation to integrate Basic LLM Chain node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "critical",
+          "nodeParameters": {
+            "Prompt": {
+              "type": "select",
+              "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+              "values": [
+                "Define below",
+                "Connected Chat Trigger Node"
+              ],
+              "subParameters": {
+                "Define below": {
+                  "Text": {
+                    "type": "text",
+                    "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                  }
+                },
+                "Connected Chat Trigger Node": {
+                  "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                }
+              }
+            },
+            "Require Specific Output Format": {
+              "type": "boolean",
+              "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+              "subParameters": {
+                "Output Parser": {
+                  "type": "connection",
+                  "description": "Connect an output parser sub-node to define the output format."
+                }
+              }
+            },
+            "Chat Messages": {
+              "type": "section",
+              "description": "Use **Chat Messages** when you're using a chat model to set a message.",
+              "subParameters": {
+                "AI": {
+                  "type": "group",
+                  "description": "Enter a sample expected response in the **Message** field. The model will try to respond in the same way in its messages.",
+                  "fields": {
+                    "Message": {
+                      "type": "text",
+                      "description": "Sample expected response."
+                    }
+                  }
+                },
+                "System": {
+                  "type": "group",
+                  "description": "Enter a system **Message** to include with the user input to help guide the model in what it should do.",
+                  "fields": {
+                    "Message": {
+                      "type": "text",
+                      "description": "System message to guide the model."
+                    }
+                  }
+                },
+                "User": {
+                  "type": "group",
+                  "description": "Enter a sample user input. Using this with the AI option can help improve the output of the agent. Using both together provides a sample of an input and expected response (the **AI Message**) for the model to follow.",
+                  "fields": {
+                    "Input Type": {
+                      "type": "select",
+                      "values": [
+                        "Text",
+                        "Image (Binary)",
+                        "Image (URL)"
+                      ]
+                    },
+                    "Message (Text)": {
+                      "type": "text",
+                      "description": "Sample user input as text."
+                    },
+                    "Image Data Field Name": {
+                      "type": "text",
+                      "description": "Binary input field name containing image data."
+                    },
+                    "Image URL": {
+                      "type": "text",
+                      "description": "URL of the image."
+                    },
+                    "Image Details": {
+                      "type": "select",
+                      "values": [
+                        "Auto",
+                        "Low",
+                        "High"
+                      ],
+                      "description": "Control how the model processes the image and generates its textual understanding."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "commonIssues": [
+            {
+              "title": "No prompt specified error",
+              "description": "This error displays when the **Prompt** is empty or invalid.",
+              "scenarios": [
+                "When you've set the **Prompt** to **Define below** and haven't entered anything in the **Text** field.",
+                "When you've set the **Prompt** to **Connected Chat Trigger Node** and the incoming data has no field called chatInput."
+              ],
+              "resolutions": [
+                "Enter a valid prompt in the **Text** field.",
+                "Add an [Edit Fields (Set)](/integrations/builtin/core-nodes/n8n-nodes-base.set.md) node to edit an incoming field name to chatInput."
+              ]
+            }
+          ]
+        },
+        "n8n-nodes-langchain.chainsummarization": {
+          "title": "Summarization Chain node documentation",
+          "description": "Learn how to use the Summarize Chain node in n8n. Follow technical documentation to integrate Summarize Chain node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Data to Summarize": {
+              "type": "select",
+              "values": [
+                "Use Node Input (JSON)",
+                "Use Node Input (Binary)",
+                "Use Document Loader"
+              ],
+              "subParameters": {
+                "Use Node Input (JSON)": {
+                  "Chunking Strategy": {
+                    "type": "select",
+                    "values": [
+                      "Simple (Define Below)",
+                      "Advanced"
+                    ],
+                    "subParameters": {
+                      "Simple (Define Below)": {
+                        "Characters Per Chunk": {
+                          "type": "number",
+                          "description": "Set Characters Per Chunk."
+                        },
+                        "Chunk Overlap (Characters)": {
+                          "type": "number",
+                          "description": "Set Chunk Overlap (Characters)."
+                        }
+                      },
+                      "Advanced": {
+                        "Splitter": {
+                          "type": "connection",
+                          "description": "Connect a splitter sub-node for advanced configuration."
+                        }
+                      }
+                    }
+                  }
+                },
+                "Use Node Input (Binary)": {
+                  "Chunking Strategy": {
+                    "type": "select",
+                    "values": [
+                      "Simple (Define Below)",
+                      "Advanced"
+                    ],
+                    "subParameters": {
+                      "Simple (Define Below)": {
+                        "Characters Per Chunk": {
+                          "type": "number",
+                          "description": "Set Characters Per Chunk."
+                        },
+                        "Chunk Overlap (Characters)": {
+                          "type": "number",
+                          "description": "Set Chunk Overlap (Characters)."
+                        }
+                      },
+                      "Advanced": {
+                        "Splitter": {
+                          "type": "connection",
+                          "description": "Connect a splitter sub-node for advanced configuration."
+                        }
+                      }
+                    }
+                  }
+                },
+                "Use Document Loader": {
+                  "Document Loader": {
+                    "type": "connection",
+                    "description": "Connect a document loader sub-node."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Summarization Method and Prompts": {
+              "type": "group",
+              "fields": {
+                "Summarization Method": {
+                  "type": "select",
+                  "values": [
+                    "Map Reduce",
+                    "Refine",
+                    "Stuff"
+                  ]
+                },
+                "Individual Summary Prompts": {
+                  "type": "text",
+                  "description": "Customize the individual summary prompts. Include the '{text}' placeholder."
+                },
+                "Final Prompt to Combine": {
+                  "type": "text",
+                  "description": "Customize the final prompt to combine summaries. Include the '{text}' placeholder."
+                }
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.code": {
+          "title": "LangChain Code node documentation",
+          "description": "Learn how to use the LangChain Code node in n8n. Follow technical documentation to integrate LangChain Code node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Add Code": {
+              "type": "select",
+              "values": [
+                "Execute",
+                "Supply Data"
+              ],
+              "description": "Choose either **Execute** or **Supply Data** mode. You can only use one mode.",
+              "subParameters": {
+                "Execute": {
+                  "description": "Use the LangChain Code node like n8n's own Code node. This takes input data from the workflow, processes it, and returns it as the node output. This mode requires a main input and output. You must create these connections in **Inputs** and **Outputs**."
+                },
+                "Supply Data": {
+                  "description": "Use the LangChain Code node as a sub-node, sending data to a root node. This uses an output other than main."
+                }
+              }
+            },
+            "Inputs": {
+              "type": "multiOptions",
+              "description": "Choose the input types.",
+              "values": [
+                "Main",
+                "..."
+              ]
+            },
+            "Outputs": {
+              "type": "multiOptions",
+              "description": "Choose the output types.",
+              "values": [
+                "Main",
+                "..."
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.information-extractor": {
+          "title": "Information Extractor node documentation",
+          "description": "Learn how to use the Information Extractor node in n8n. Follow technical documentation to integrate Information Extractor node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Text": {
+              "type": "text",
+              "description": "Defines the input text to extract information from. This is usually an expression that references a field from the input items."
+            },
+            "Schema Type": {
+              "type": "select",
+              "values": [
+                "From Attribute Description",
+                "Generate From JSON Example",
+                "Define Below"
+              ],
+              "description": "Choose how you want to describe the desired output data format.",
+              "subParameters": {
+                "From Attribute Description": {
+                  "description": "Define the schema by specifying the list of attributes and their descriptions."
+                },
+                "Generate From JSON Example": {
+                  "description": "Input an example JSON object to automatically generate the schema."
+                },
+                "Define Below": {
+                  "description": "Manually input the JSON schema."
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "System Prompt Template": {
+              "type": "text",
+              "description": "Use this option to change the system prompt that's used for the information extraction. n8n automatically appends format specification instructions to the prompt."
+            }
+          }
+        },
+        "n8n-nodes-langchain.sentimentanalysis": {
+          "title": "Sentiment Analysis node documentation",
+          "description": "Learn how to use the Sentiment Analysis node in n8n. Follow technical documentation to integrate Sentiment Analysis node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Text to Analyze": {
+              "type": "text",
+              "description": "Defines the input text for sentiment analysis. This is an expression that references a field from the input items."
+            }
+          },
+          "nodeOptions": {
+            "Sentiment Categories": {
+              "type": "text",
+              "description": "Define the categories that you want to classify your input as. By default, these are Positive, Neutral, Negative."
+            },
+            "Include Detailed Results": {
+              "type": "boolean",
+              "description": "When turned on, this option includes sentiment strength and confidence scores in the output."
+            },
+            "System Prompt Template": {
+              "type": "text",
+              "description": "Use this option to change the system prompt that's used for the sentiment analysis. It uses the {categories} placeholder for the categories."
+            },
+            "Enable Auto-Fixing": {
+              "type": "boolean",
+              "description": "When enabled, the node automatically fixes model outputs to ensure they match the expected format."
+            }
+          }
+        },
+        "n8n-nodes-langchain.text-classifier": {
+          "title": "Text Classifier node documentation",
+          "description": "Learn how to use the Text Classifier node in n8n. Follow technical documentation to integrate Text Classifier node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Input Prompt": {
+              "type": "text",
+              "description": "Defines the input to classify. This is usually an expression that references a field from the input items."
+            },
+            "Categories": {
+              "type": "collection",
+              "description": "Add the categories that you want to classify your input as.",
+              "fields": {
+                "Name": {
+                  "type": "text",
+                  "description": "Category name"
+                },
+                "Description": {
+                  "type": "text",
+                  "description": "Category description"
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Allow Multiple Classes To Be True": {
+              "type": "boolean",
+              "description": "Configure the classifier to always output a single class per item (turned off), or allow the model to select multiple classes (turned on)."
+            },
+            "When No Clear Match": {
+              "type": "select",
+              "values": [
+                "Discard Item",
+                "Output on Extra, 'Other' Branch"
+              ],
+              "description": "Define what happens if the model can't find a good match for an item."
+            },
+            "System Prompt Template": {
+              "type": "text",
+              "description": "Use this option to change the system prompt that's used for the classification. It uses the {categories} placeholder for the categories."
+            },
+            "Enable Auto-Fixing": {
+              "type": "boolean",
+              "description": "When enabled, the node automatically fixes model outputs to ensure they match the expected format."
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstoreinmemory": {
+          "title": "Simple Vector Store node documentation",
+          "description": "Learn how to use the Simple Vector Store node in n8n. Follow technical documentation to integrate Simple Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Memory Key": {
+                    "type": "text",
+                    "description": "Enter the key to use to store the vector memory in the workflow data."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter the search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Insert Documents": {
+                  "Memory Key": {
+                    "type": "text",
+                    "description": "Enter the key to use to store the vector memory in the workflow data."
+                  },
+                  "Clear Store": {
+                    "type": "boolean",
+                    "description": "Use this parameter to control whether to wipe the vector store before inserting data (turned on)."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Memory Key": {
+                    "type": "text",
+                    "description": "Enter the key to use to store the vector memory in the workflow data."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Memory Key": {
+                    "type": "text",
+                    "description": "Enter the key to use to store the vector memory in the workflow data."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstoremongodbatlas": {
+          "title": "MongoDB Atlas Vector Store node documentation",
+          "description": "Learn how to use the MongoDB Atlas Vector Store node in n8n. Follow technical documentation to integrate MongoDB Atlas Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Mongo Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the MongoDB collection to use."
+                  },
+                  "Vector Index Name": {
+                    "type": "text",
+                    "description": "Enter the name of the Vector Search index in your MongoDB Atlas collection."
+                  },
+                  "Embedding Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the vector embeddings."
+                  },
+                  "Metadata Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the text metadata."
+                  }
+                },
+                "Insert Documents": {
+                  "Mongo Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the MongoDB collection to use."
+                  },
+                  "Vector Index Name": {
+                    "type": "text",
+                    "description": "Enter the name of the Vector Search index in your MongoDB Atlas collection."
+                  },
+                  "Embedding Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the vector embeddings."
+                  },
+                  "Metadata Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the text metadata."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Mongo Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the MongoDB collection to use."
+                  },
+                  "Vector Index Name": {
+                    "type": "text",
+                    "description": "Enter the name of the Vector Search index in your MongoDB Atlas collection."
+                  },
+                  "Embedding Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the vector embeddings."
+                  },
+                  "Metadata Field": {
+                    "type": "text",
+                    "description": "Enter the field name in your documents that contains the text metadata."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Mongo Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the MongoDB collection to use."
+                  },
+                  "Vector Index Name": {
+                    "type": "text",
+                    "description": "Enter the name of the Vector Search index in your MongoDB Atlas collection."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Options": {
+              "type": "group",
+              "fields": {
+                "Metadata Filter": {
+                  "type": "json",
+                  "description": "Filters results based on metadata."
+                }
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstorepgvector": {
+          "title": "PGVector Vector Store node documentation",
+          "description": "Learn how to use the PGVector Vector Store node in n8n. Follow technical documentation to integrate PGVector Vector Store node into your workflows.",
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Table name": {
+                    "type": "text",
+                    "description": "Enter the name of the table you want to query."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter your search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter a number to set how many results to retrieve from the vector store."
+                  }
+                },
+                "Insert Documents": {
+                  "Table name": {
+                    "type": "text",
+                    "description": "Enter the name of the table you want to query."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Table name": {
+                    "type": "text",
+                    "description": "Enter the name of the table you want to query."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the PGVector table to use."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Collection": {
+              "type": "group",
+              "description": "A way to separate datasets in PGVector.",
+              "fields": {
+                "Use Collection": {
+                  "type": "boolean",
+                  "description": "Select whether to use a collection (turned on) or not (turned off)."
+                },
+                "Collection Name": {
+                  "type": "text",
+                  "description": "Enter the name of the collection you want to use."
+                },
+                "Collection Table Name": {
+                  "type": "text",
+                  "description": "Enter the name of the table to store collection information in."
+                }
+              }
+            },
+            "Column Names": {
+              "type": "group",
+              "description": "The following options specify the names of the columns to store the vectors and corresponding information in:",
+              "fields": {
+                "ID Column Name": {
+                  "type": "text",
+                  "description": "ID Column Name"
+                },
+                "Vector Column Name": {
+                  "type": "text",
+                  "description": "Vector Column Name"
+                },
+                "Content Column Name": {
+                  "type": "text",
+                  "description": "Content Column Name"
+                },
+                "Metadata Column Name": {
+                  "type": "text",
+                  "description": "Metadata Column Name"
+                }
+              }
+            },
+            "Metadata Filter": {
+              "type": "json",
+              "description": "Filters results based on metadata. For example: {\"foo\": \"bar\"}."
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstorepinecone": {
+          "title": "Pinecone Vector Store node documentation",
+          "description": "Learn how to use the Pinecone Vector Store node in n8n. Follow technical documentation to integrate Pinecone Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)",
+                "Update Documents"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Pinecone Index": {
+                    "type": "select | text",
+                    "description": "Select or enter the Pinecone Index to use."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter your search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Insert Documents": {
+                  "Pinecone Index": {
+                    "type": "select | text",
+                    "description": "Select or enter the Pinecone Index to use."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Pinecone Index": {
+                    "type": "select | text",
+                    "description": "Select or enter the Pinecone Index to use."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Pinecone Index": {
+                    "type": "select | text",
+                    "description": "Select or enter the Pinecone Index to use."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Update Documents": {
+                   "Pinecone Index": {
+                    "type": "select | text",
+                    "description": "Select or enter the Pinecone Index to use."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Pinecone Namespace": {
+              "type": "text",
+              "description": "Another segregation option for how to store your data within the index."
+            },
+            "Metadata Filter": {
+              "type": "json",
+              "description": "Filters results based on metadata. For example: {\"foo\": \"bar\"}."
+            },
+            "Clear Namespace": {
+              "type": "boolean",
+              "description": "Available in **Insert Documents** mode. Deletes all data from the namespace before inserting the new data."
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstoreqdrant": {
+          "title": "Qdrant Vector Store node documentation",
+          "description": "Learn how to use the Qdrant Vector Store node in n8n. Follow technical documentation to integrate Qdrant Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Qdrant collection name": {
+                    "type": "text",
+                    "description": "Enter the name of the Qdrant collection to use."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter the search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Insert Documents": {
+                  "Qdrant collection name": {
+                    "type": "text",
+                    "description": "Enter the name of the Qdrant collection to use."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Qdrant Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the Qdrant collection to use."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Qdrant Collection": {
+                    "type": "text",
+                    "description": "Enter the name of the Qdrant collection to use."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Metadata Filter": {
+              "type": "json",
+              "description": "Filters results based on metadata. For example: {\"foo\": \"bar\"}."
+            },
+            "Collection Config": {
+              "type": "json",
+              "description": "Enter JSON options for creating a Qdrant collection creation configuration."
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstoresupabase": {
+          "title": "Supabase Vector Store node documentation",
+          "description": "Learn how to use the Supabase Vector Store node in n8n. Follow technical documentation to integrate Supabase Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)",
+                "Update Documents"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Get Many": {
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the Supabase table to use."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter the search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Insert Documents": {
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the Supabase table to use."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the Supabase table to use."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the Supabase table to use."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Update Documents": {
+                  "Table Name": {
+                    "type": "text",
+                    "description": "Enter the Supabase table to use."
+                  },
+                  "ID": {
+                    "type": "text",
+                    "description": "The ID of an embedding entry."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Query Name": {
+              "type": "text",
+              "description": "The name of the matching function you set up in Supabase."
+            },
+            "Metadata Filter": {
+              "type": "json",
+              "description": "Filters results based on metadata. For example: {\"foo\": \"bar\"}."
+            }
+          }
+        },
+        "n8n-nodes-langchain.vectorstorezep": {
+          "title": "Zep Vector Store node documentation",
+          "description": "Learn how to use the Zep Vector Store node in n8n. Follow technical documentation to integrate Zep Vector Store node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many",
+                "Insert Documents",
+                "Retrieve Documents (As Vector Store for Chain/Tool)",
+                "Retrieve Documents (As Tool for AI Agent)"
+              ],
+              "description": "Select the operation mode for the vector store.",
+              "subParameters": {
+                "Insert Documents": {
+                  "Collection Name": {
+                    "type": "text",
+                    "description": "Enter the collection name to store the data in."
+                  }
+                },
+                "Get Many": {
+                  "Collection Name": {
+                    "type": "text",
+                    "description": "Enter the collection name to retrieve the data from."
+                  },
+                  "Prompt": {
+                    "type": "text",
+                    "description": "Enter the search query."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                },
+                "Retrieve Documents (As Vector Store for Chain/Tool)": {
+                  "Collection Name": {
+                    "type": "text",
+                    "description": "Enter the collection name to retrieve the data from."
+                  }
+                },
+                "Retrieve Documents (As Tool for AI Agent)": {
+                  "Name": {
+                    "type": "text",
+                    "description": "The name of the vector store."
+                  },
+                  "Description": {
+                    "type": "text",
+                    "description": "Explain to the LLM what this tool does."
+                  },
+                  "Collection Name": {
+                    "type": "text",
+                    "description": "Enter the collection name to retrieve the data from."
+                  },
+                  "Limit": {
+                    "type": "number",
+                    "description": "Enter how many results to retrieve from the vector store."
+                  }
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Embedding Dimensions": {
+              "type": "number",
+              "description": "Must be the same when embedding the data and when querying it."
+            },
+            "Is Auto Embedded": {
+              "type": "boolean",
+              "description": "Available in the **Insert Documents** Operation Mode, enabled by default."
+            },
+            "Metadata Filter": {
+              "type": "json",
+              "description": "Filters results based on metadata. For example: {\"foo\": \"bar\"}."
+            }
+          }
+        },
+        "n8n-nodes-langchain.agent": {
+          "common-issues": {
+            "title": "AI Agent node common issues",
+            "description": "Documentation for common issues and questions in the AI Agent node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "commonIssues": [
+              {
+                "title": "Internal error: 400 Invalid value for 'content'",
+                "description": "This error can occur if the **Prompt** input contains a null value.",
+                "scenarios": [
+                  "When you've set the **Prompt** to **Define below** and have an expression in your **Text** that isn't generating a value.",
+                  "When you've set the **Prompt** to **Connected Chat Trigger Node** and the incoming data has null values."
+                ],
+                "resolutions": [
+                  "Make sure your expressions reference valid fields and that they resolve to valid input rather than null.",
+                  "Remove any null values from the chatInput field of the input node."
+                ]
+              },
+              {
+                "title": "Error in sub-node Simple Memory",
+                "description": "This error displays when n8n runs into an issue with the [Simple Memory](/integrations/builtin/cluster-nodes/sub-nodes/n8n-nodes-langchain.memorybufferwindow/index.md) sub-node.",
+                "resolutions": [
+                  "Try removing the Simple Memory node from your workflow and re-adding it."
+                ]
+              },
+              {
+                "title": "A Chat Model sub-node must be connected error",
+                "description": "This error displays when n8n tries to execute the node without having a Chat Model connected.",
+                "resolutions": [
+                  "Click the + Chat Model button at the bottom of your screen when the node is open, or click the Chat Model + connector when the node is closed."
+                ]
+              },
+              {
+                "title": "No prompt specified error",
+                "description": "This error occurs when the agent expects to get the prompt from the previous node automatically.",
+                "resolutions": [
+                  "Find the **Prompt** parameter of the AI Agent node and change it from **Connected Chat Trigger Node** to **Define below**."
+                ]
+              }
+            ]
+          },
+          "conversational-agent": {
+            "title": "Conversational AI Agent node documentation",
+            "description": "Learn how to use the Conversational Agent of the AI Agent node in n8n. Follow technical documentation to integrate the Conversational Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              },
+              "Require Specific Output Format": {
+                "type": "boolean",
+                "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+                "subParameters": {
+                  "Output Parser": {
+                    "type": "connection",
+                    "description": "Connect an output parser sub-node to define the output format."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "Human Message": {
+                "type": "text",
+                "description": "Tell the agent about the tools it can use and add context to the user's input. You must include these expressions and variable: {tools}, {format_instructions}, {{input}}."
+              },
+              "System Message": {
+                "type": "text",
+                "description": "Define the system message to send to the model. System messages help set the behavior of the model."
+              },
+              "Max Iterations": {
+                "type": "number",
+                "description": "Set the maximum number of iterations the agent will perform before stopping."
+              },
+              "Return Intermediate Steps": {
+                "type": "boolean",
+                "description": "Turn on to return intermediate steps in the node output."
+              }
+            }
+          },
+          "index": {
+            "title": "AI Agent node documentation",
+            "description": "Learn how to use the AI Agent node in n8n. Follow technical documentation to integrate AI Agent node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical"
+          },
+          "openai-functions-agent": {
+            "title": "OpenAI Functions Agent node documentation",
+            "description": "Learn how to use the OpenAI Functions Agent of the AI Agent node in n8n. Follow technical documentation to integrate the OpenAI Functions Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              },
+              "Require Specific Output Format": {
+                "type": "boolean",
+                "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+                "subParameters": {
+                  "Output Parser": {
+                    "type": "connection",
+                    "description": "Connect an output parser sub-node to define the output format."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "System Message": {
+                "type": "text",
+                "description": "Define the system message to send to the model. System messages help set the behavior of the model."
+              },
+              "Max Iterations": {
+                "type": "number",
+                "description": "Set the maximum number of iterations the agent will perform before stopping."
+              },
+              "Return Intermediate Steps": {
+                "type": "boolean",
+                "description": "Turn on to return intermediate steps in the node output."
+              }
+            }
+          },
+          "plan-execute-agent": {
+            "title": "Plan and Execute AI Agent node documentation",
+            "description": "Learn how to use the Plan and Execute Agent of the AI Agent node in n8n. Follow technical documentation to integrate the Plan and Execute Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              },
+              "Require Specific Output Format": {
+                "type": "boolean",
+                "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+                "subParameters": {
+                  "Output Parser": {
+                    "type": "connection",
+                    "description": "Connect an output parser sub-node to define the output format."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "Human Message Template": {
+                "type": "text",
+                "description": "Enter a message that n8n will send to the agent during each step execution. Available LangChain expressions: {previous_steps}, {current_step}, {agent_scratchpad}."
+              }
+            }
+          },
+          "react-agent": {
+            "title": "ReAct AI Agent node documentation",
+            "description": "Learn how to use the ReAct Agent of the AI Agent node in n8n. Follow technical documentation to integrate the ReAct Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              },
+              "Require Specific Output Format": {
+                "type": "boolean",
+                "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+                "subParameters": {
+                  "Output Parser": {
+                    "type": "connection",
+                    "description": "Connect an output parser sub-node to define the output format."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "Human Message Template": {
+                "type": "text",
+                "description": "Use this option to extend the user prompt. Available LangChain expressions: {input}, {agent_scratchpad}."
+              },
+              "Prefix Message": {
+                "type": "text",
+                "description": "Enter text to prefix the tools list at the start of the conversation."
+              },
+              "Suffix Message for Chat Model": {
+                "type": "text",
+                "description": "Add text to append after the tools list at the start of the conversation when the agent uses a chat model."
+              },
+              "Suffix Message for Regular Model": {
+                "type": "text",
+                "description": "Add text to append after the tools list at the start of the conversation when the agent uses a regular/instruct model."
+              },
+              "Return Intermediate Steps": {
+                "type": "boolean",
+                "description": "Turn on to return intermediate steps in the node output."
+              }
+            }
+          },
+          "sql-agent": {
+            "title": "SQL AI Agent node documentation",
+            "description": "Learn how to use the SQL Agent of the AI Agent node in n8n. Follow technical documentation to integrate the SQL Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Data Source": {
+                "type": "select",
+                "values": [
+                  "MySQL",
+                  "SQLite",
+                  "Postgres"
+                ],
+                "subParameters": {
+                  "MySQL": {
+                    "Credential for MySQL": {
+                      "type": "credential",
+                      "credentialType": "mysql"
+                    }
+                  },
+                  "SQLite": {
+                    "Input Binary Field": {
+                      "type": "text",
+                      "description": "Input Binary Field name of your SQLite file coming from the Read/Write File From Disk node."
+                    }
+                  },
+                  "Postgres": {
+                    "Credential for Postgres": {
+                      "type": "credential",
+                      "credentialType": "postgres"
+                    }
+                  }
+                }
+              },
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "Ignored Tables": {
+                "type": "text",
+                "description": "Enter a comma-separated list of tables you'd like it to ignore."
+              },
+              "Include Sample Rows": {
+                "type": "number",
+                "description": "Enter the number of sample rows to include in the prompt to the agent. Default is 3."
+              },
+              "Included Tables": {
+                "type": "text",
+                "description": "Enter a comma-separated list of tables to include."
+              },
+              "Prefix Prompt": {
+                "type": "text",
+                "description": "Enter a message you'd like to send to the agent before the **Prompt** text."
+              },
+              "Suffix Prompt": {
+                "type": "text",
+                "description": "Enter a message you'd like to send to the agent after the **Prompt** text. Available LangChain expressions: {chatHistory}, {input}, {agent_scratchpad}."
+              },
+              "Limit": {
+                "type": "number",
+                "description": "Enter the maximum number of results to return. Default is 10."
+              }
+            }
+          },
+          "tools-agent": {
+            "title": "Tools AI Agent node documentation",
+            "description": "Learn how to use the Tools Agent of the AI Agent node in n8n. Follow technical documentation to integrate the Tools Agent into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "critical",
+            "nodeParameters": {
+              "Prompt": {
+                "type": "select",
+                "description": "Choose how to set the prompt for the model. Choose between defining it below or connecting a Chat Trigger node.",
+                "values": [
+                  "Define below",
+                  "Connected Chat Trigger Node"
+                ],
+                "subParameters": {
+                  "Define below": {
+                    "Text": {
+                      "type": "text",
+                      "description": "The prompt text to send to the model. You can use expressions to reference data from previous nodes."
+                    }
+                  },
+                  "Connected Chat Trigger Node": {
+                    "description": "The node expects the prompt to be in the chatInput field from the previous node."
+                  }
+                }
+              },
+              "Require Specific Output Format": {
+                "type": "boolean",
+                "description": "Turn on to require the model to respond with a specific output format (for example, JSON).",
+                "subParameters": {
+                  "Output Parser": {
+                    "type": "connection",
+                    "description": "Connect an output parser sub-node to define the output format."
+                  }
+                }
+              }
+            },
+            "nodeOptions": {
+              "System Message": {
+                "type": "text",
+                "description": "Define the system message to send to the model. System messages help set the behavior of the model."
+              },
+              "Max Iterations": {
+                "type": "number",
+                "description": "Set the maximum number of iterations the agent will perform before stopping."
+              },
+              "Return Intermediate Steps": {
+                "type": "boolean",
+                "description": "Turn on to return intermediate steps in the node output."
+              },
+              "Automatically Passthrough Binary Images": {
+                "type": "boolean",
+                "description": "Automatically pass through binary images from input to output if the agent doesn't use them."
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.chainretrievalqa": {
+          "common-issues": {
+            "title": "Question and Answer Chain node common issues",
+            "description": "Documentation for common issues and questions in the Question and Answer Chain node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "No prompt specified error",
+                "description": "This error displays when the **Prompt** is empty or invalid.",
+                "scenarios": [
+                  "When you've set the **Prompt** to **Define below** and have an expression in your **Text** that isn't generating a value.",
+                  "When you've set the **Prompt** to **Connected Chat Trigger Node** and the incoming data has null values."
+                ],
+                "resolutions": [
+                  "Enter a valid prompt in the **Text** field.",
+                  "Make sure any expressions reference valid fields and that they resolve to valid input rather than null.",
+                  "Make sure your input contains a chatInput field.",
+                  "Add an [Edit Fields (Set)](/integrations/builtin/core-nodes/n8n-nodes-base.set.md) node to edit an incoming field name to chatInput.",
+                  "Remove any null values from the chatInput field of the input node."
+                ]
+              },
+              {
+                "title": "A Retriever sub-node must be connected error",
+                "description": "This error displays when n8n tries to execute the node without having a Retriever connected.",
+                "resolutions": [
+                  "Click the + Retriever button at the bottom of your screen when the node is open, or click the Retriever + connector when the node isn't open."
+                ]
+              },
+              {
+                "title": "Can't produce longer responses",
+                "description": "If you need to generate longer responses than the Question and Answer Chain node produces by default.",
+                "resolutions": [
+                  "Connect a more verbose model.",
+                  "Increase the maximum number of tokens.",
+                  "Build larger responses in stages."
+                ]
+              }
+            ]
+          },
+          "index": {
+            "title": "Question and Answer Chain node documentation",
+            "description": "Learn how to use the Question and Answer Chain node in n8n. Follow technical documentation to integrate Question and Answer Chain node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Query": {
+                "type": "text",
+                "description": "The question you want to ask."
+              }
+            }
+          }
+        }
+      },
+      "sub-nodes": {
+        "index": {
+          "title": "Sub-nodes",
+          "description": "Understand sub-nodes in n8n, and browse the sub-nodes library.",
+          "contentType": "overview"
+        },
+        "n8n-nodes-langchain.documentdefaultdataloader": {
+          "title": "Default Data Loader node documentation",
+          "description": "Learn how to use the Default Data Loader node in n8n. Follow technical documentation to integrate Default Data Loader node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Type of Data": {
+              "type": "select",
+              "values": [
+                "Binary",
+                "JSON"
+              ]
+            },
+            "Data Format": {
+              "type": "select",
+              "values": [
+                "Automatically Detect by MIME Type",
+                "Text",
+                "PDF",
+                "HTML",
+                "CSV",
+                "Markdown"
+              ],
+              "description": "Displays when you set **Type of Data** to **Binary**. Select the file MIME type for your binary data."
+            },
+            "Mode": {
+              "type": "select",
+              "values": [
+                "Load All Input Data",
+                "Load Specific Data"
+              ],
+              "description": "Displays when you set **Type of Data** to **JSON**. Choose from:",
+              "subParameters": {
+                "Load All Input Data": {
+                  "description": "Use all the node's input data."
+                },
+                "Load Specific Data": {
+                  "description": "Use [expressions](/code/expressions.md) to define the data you want to load."
+                }
+              }
+            }
+          },
+          "nodeOptions": {
+            "Metadata": {
+              "type": "json",
+              "description": "Set the metadata that should accompany the document in the vector store."
+            }
+          }
+        },
+        "n8n-nodes-langchain.documentgithubloader": {
+          "title": "GitHub Document Loader node documentation",
+          "description": "Learn how to use the GitHub Document Loader node in n8n. Follow technical documentation to integrate GitHub Document Loader node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Repository Link": {
+              "type": "text",
+              "description": "Enter the URL of your GitHub repository."
+            },
+            "Branch": {
+              "type": "text",
+              "description": "Enter the branch name to use."
+            }
+          },
+          "nodeOptions": {
+            "Recursive": {
+              "type": "boolean",
+              "description": "Select whether to include sub-folders and files (turned on) or not (turned off)."
+            },
+            "Ignore Paths": {
+              "type": "text",
+              "description": "Enter directories to ignore."
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsawsbedrock": {
+          "title": "Embeddings AWS Bedrock node documentation",
+          "description": "Learn how to use the Embeddings AWS Bedrock node in n8n. Follow technical documentation to integrate Embeddings AWS Bedrock node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": [
+                "amazon.titan-embed-text-v1"
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsazureopenai": {
+          "title": "Embeddings Azure OpenAI node documentation",
+          "description": "Learn how to use the Embeddings Azure OpenAI node in n8n. Follow technical documentation to integrate Embeddings Azure OpenAI node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeOptions": {
+            "Model (Deployment) Name": {
+              "type": "select",
+              "description": "Select the model (deployment) to use for generating embeddings."
+            },
+            "Batch Size": {
+              "type": "number",
+              "description": "Enter the maximum number of documents to send in each request."
+            },
+            "Strip New Lines": {
+              "type": "boolean",
+              "description": "Select whether to remove new line characters from input text (turned on) or not (turned off)."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum amount of time a request can take in seconds. Set to -1 for no timeout."
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingscohere": {
+          "title": "Embeddings Cohere node documentation",
+          "description": "Learn how to use the Embeddings Cohere node in n8n. Follow technical documentation to integrate Embeddings Cohere node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": [
+                "Embed-English-v2.0(4096 Dimensions)",
+                "Embed-English-Light-v2.0(1024 Dimensions)",
+                "Embed-Multilingual-v2.0(768 Dimensions)"
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsgooglegemini": {
+          "title": "Embeddings Google Gemini node documentation",
+          "description": "Learn how to use the Embeddings Google Gemini node in n8n. Follow technical documentation to integrate Embeddings Google Gemini node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": [
+                "embedding-001"
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsgooglepalm": {
+          "title": "Embeddings Google PaLM node documentation",
+          "description": "Learn how to use the Embeddings Google PaLM node in n8n. Follow technical documentation to integrate Embeddings Google PaLM node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": []
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingshuggingfaceinference": {
+          "title": "Embeddings HuggingFace Inference node documentation",
+          "description": "Learn how to use the Embeddings HuggingFace Inference node in n8n. Follow technical documentation to integrate Embeddings HuggingFace Inference node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Custom Inference Endpoint": {
+              "type": "text",
+              "description": "Enter the URL of your deployed model, hosted by HuggingFace."
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsmistralcloud": {
+          "title": "Embeddings Mistral Cloud node documentation",
+          "description": "Learn how to use the Embeddings Mistral Cloud node in n8n. Follow technical documentation to integrate Embeddings Mistral Cloud node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": [
+                "mistral-embed"
+              ]
+            }
+          },
+          "nodeOptions": {
+            "Batch Size": {
+              "type": "number",
+              "description": "Enter the maximum number of documents to send in each request."
+            },
+            "Strip New Lines": {
+              "type": "boolean",
+              "description": "Select whether to remove new line characters from input text (turned on) or not (turned off)."
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsollama": {
+          "title": "Embeddings Ollama node documentation",
+          "description": "Learn how to use the Embeddings Ollama node in n8n. Follow technical documentation to integrate Embeddings Ollama node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the embedding.",
+              "values": [
+                "all-minilm",
+                "nomic-embed-text"
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.embeddingsopenai": {
+          "title": "Embeddings OpenAI node documentation",
+          "description": "Learn how to use the Embeddings OpenAI node in n8n. Follow technical documentation to integrate Embeddings OpenAI node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeOptions": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use for generating embeddings."
+            },
+            "Base URL": {
+              "type": "text",
+              "description": "Enter the URL to send the request to. Use this if you are using a self-hosted OpenAI-like model."
+            },
+            "Batch Size": {
+              "type": "number",
+              "description": "Enter the maximum number of documents to send in each request."
+            },
+            "Strip New Lines": {
+              "type": "boolean",
+              "description": "Select whether to remove new line characters from input text (turned on) or not (turned off)."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum amount of time a request can take in seconds. Set to -1 for no timeout."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatanthropic": {
+          "title": "Anthropic Chat Model node documentation",
+          "description": "Learn how to use the Anthropic Chat Model node in n8n. Follow technical documentation to integrate Anthropic Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model that generates the completion.",
+              "values": [
+                "Claude",
+                "Claude Instant"
+              ]
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Top K": {
+              "type": "number",
+              "description": "Enter the number of token choices the model uses to generate the next token."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatawsbedrock": {
+          "title": "AWS Bedrock Chat Model node documentation",
+          "description": "Learn how to use the AWS Bedrock Chat Model node in n8n. Follow technical documentation to integrate AWS Bedrock Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model that generates the completion.",
+              "values": [
+                "anthropic.claude-v2",
+                "anthropic.claude-instant-v1"
+              ]
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatazureopenai": {
+          "title": "Azure OpenAI Chat Model node documentation",
+          "description": "Learn how to use the Azure OpenAI Chat Model node in n8n. Follow technical documentation to integrate Azure OpenAI Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Frequency Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model repeating itself."
+            },
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Response Format": {
+              "type": "select",
+              "values": [
+                "Text",
+                "JSON"
+              ],
+              "description": "Choose **Text** or **JSON**. **JSON** ensures the model returns valid JSON."
+            },
+            "Presence Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model talking about new topics."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum request time in milliseconds."
+            },
+            "Max Retries": {
+              "type": "number",
+              "description": "Enter the maximum number of times to retry a request."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatdeepseek": {
+          "title": "DeepSeek Chat Model node documentation",
+          "description": "Learn how to use the DeepSeek Chat Model node in n8n. Follow technical documentation to integrate DeepSeek Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Base URL": {
+              "type": "text",
+              "description": "Enter a URL here to override the default URL for the API."
+            },
+            "Frequency Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model repeating itself."
+            },
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Response Format": {
+              "type": "select",
+              "values": [
+                "Text",
+                "JSON"
+              ],
+              "description": "Choose **Text** or **JSON**. **JSON** ensures the model returns valid JSON."
+            },
+            "Presence Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model talking about new topics."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum request time in milliseconds."
+            },
+            "Max Retries": {
+              "type": "number",
+              "description": "Enter the maximum number of times to retry a request."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatgooglegemini": {
+          "title": "Google Gemini Chat Model node documentation",
+          "description": "Learn how to use the Google Gemini Chat Model node in n8n. Follow technical documentation to integrate Google Gemini Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Top K": {
+              "type": "number",
+              "description": "Enter the number of token choices the model uses to generate the next token."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            },
+            "Safety Settings": {
+              "type": "json",
+              "description": "Gemini supports adjustable safety settings."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatgooglevertex": {
+          "title": "Google Vertex Chat Model node documentation",
+          "description": "Learn how to use the Google Vertex Chat Model node in n8n. Follow technical documentation to integrate Google Vertex Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Project ID": {
+              "type": "select | text",
+              "description": "Select the project ID from your Google Cloud account to use."
+            },
+            "Model Name": {
+              "type": "select",
+              "description": "Select the name of the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Top K": {
+              "type": "number",
+              "description": "Enter the number of token choices the model uses to generate the next token."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            },
+            "Safety Settings": {
+              "type": "json",
+              "description": "Gemini supports adjustable safety settings."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatgroq": {
+          "title": "Groq Chat Model node documentation",
+          "description": "Learn how to use the Groq Chat Model node in n8n. Follow technical documentation to integrate Groq Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model which will generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatmistralcloud": {
+          "title": "Mistral Cloud Chat Model node documentation",
+          "description": "Learn how to use the Mistral Cloud Chat Model node in n8n. Follow technical documentation to integrate Mistral Cloud Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": [
+                "mistral-tiny",
+                "mistral-small",
+                "mistral-medium"
+              ]
+            }
+          },
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum request time in milliseconds."
+            },
+            "Max Retries": {
+              "type": "number",
+              "description": "Enter the maximum number of times to retry a request."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            },
+            "Enable Safe Mode": {
+              "type": "boolean",
+              "description": "Enable safe mode by injecting a safety prompt at the beginning of the completion."
+            },
+            "Random Seed": {
+              "type": "number",
+              "description": "Enter a seed to use for random sampling. If set, different calls will generate deterministic results."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatopenrouter": {
+          "title": "OpenRouter Chat Model node documentation",
+          "description": "Learn how to use the OpenRouter Chat Model node in n8n. Follow technical documentation to integrate OpenRouter Chat Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Base URL": {
+              "type": "text",
+              "description": "Enter a URL here to override the default URL for the API."
+            },
+            "Frequency Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model repeating itself."
+            },
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Response Format": {
+              "type": "select",
+              "values": [
+                "Text",
+                "JSON"
+              ],
+              "description": "Choose **Text** or **JSON**. **JSON** ensures the model returns valid JSON."
+            },
+            "Presence Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model talking about new topics."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Timeout": {
+              "type": "number",
+              "description": "Enter the maximum request time in milliseconds."
+            },
+            "Max Retries": {
+              "type": "number",
+              "description": "Enter the maximum number of times to retry a request."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmcohere": {
+          "title": "Cohere Model node documentation",
+          "description": "Learn how to use the Cohere Model node in n8n. Follow technical documentation to integrate Cohere Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeOptions": {
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmopenhuggingfaceinference": {
+          "title": "Hugging Face Inference Model node documentation",
+          "description": "Learn how to use the Hugging Face Inference Model node in n8n. Follow technical documentation to integrate Hugging Face Inference Model node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Model": {
+              "type": "select",
+              "description": "Select the model to use to generate the completion.",
+              "values": []
+            }
+          },
+          "nodeOptions": {
+            "Custom Inference Endpoint": {
+              "type": "text",
+              "description": "Enter a custom inference endpoint URL."
+            },
+            "Frequency Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model repeating itself."
+            },
+            "Maximum Number of Tokens": {
+              "type": "number",
+              "description": "Enter the maximum number of tokens used, which sets the completion length."
+            },
+            "Presence Penalty": {
+              "type": "number",
+              "description": "Use this option to control the chances of the model talking about new topics."
+            },
+            "Sampling Temperature": {
+              "type": "number",
+              "description": "Use this option to control the randomness of the sampling process."
+            },
+            "Top K": {
+              "type": "number",
+              "description": "Enter the number of token choices the model uses to generate the next token."
+            },
+            "Top P": {
+              "type": "number",
+              "description": "Use this option to set the probability the completion should use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memorymanager": {
+          "title": "Chat Memory Manager node documentation",
+          "description": "Learn how to use the Chat Memory Manager node in n8n. Follow technical documentation to integrate Chat Memory Manager node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Operation Mode": {
+              "type": "select",
+              "values": [
+                "Get Many Messages",
+                "Insert Messages",
+                "Delete Messages"
+              ]
+            },
+            "Insert Mode": {
+              "type": "select",
+              "values": [
+                "Insert Messages",
+                "Override All Messages"
+              ],
+              "description": "Available in **Insert Messages** mode."
+            },
+            "Delete Mode": {
+              "type": "select",
+              "values": [
+                "Last N",
+                "All Messages"
+              ],
+              "description": "available in **Delete Messages** mode."
+            },
+            "Chat Messages": {
+              "type": "collection",
+              "description": "available in **Insert Messages** mode.",
+              "fields": {
+                "Type Name or ID": {
+                  "type": "select",
+                  "values": [
+                    "AI",
+                    "System",
+                    "User"
+                  ]
+                },
+                "Message": {
+                  "type": "text",
+                  "description": "Enter the message contents."
+                },
+                "Hide Message in Chat": {
+                  "type": "boolean",
+                  "description": "Select whether n8n should display the message to the user in the chat UI (turned off) or not (turned on)."
+                }
+              }
+            },
+            "Messages Count": {
+              "type": "number",
+              "description": "Available in **Delete Messages** mode when you select **Last N**. Enter the number of latest messages to delete."
+            },
+            "Simplify Output": {
+              "type": "boolean",
+              "description": "Available in **Get Many Messages** mode. Turn on to simplify the output to include only the sender (AI, user, or system) and the text."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memorymotorhead": {
+          "title": "Motorhead node documentation",
+          "description": "Learn how to use the Motorhead node in n8n. Follow technical documentation to integrate Motorhead node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Session ID": {
+              "type": "text",
+              "description": "Enter the ID to use to store the memory in the workflow data."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memorypostgreschat": {
+          "title": "Postgres Chat Memory node documentation",
+          "description": "Learn how to use the Postgres Chat Memory node in n8n. Follow technical documentation to integrate Postgres Chat Memory node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Session Key": {
+              "type": "text",
+              "description": "Enter the key to use to store the memory in the workflow data."
+            },
+            "Table Name": {
+              "type": "text",
+              "description": "Enter the name of the table to store the chat history in."
+            },
+            "Context Window Length": {
+              "type": "number",
+              "description": "Enter the number of previous interactions to consider for context."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memoryredischat": {
+          "title": "Redis Chat Memory node documentation",
+          "description": "Learn how to use the Redis Chat Memory node in n8n. Follow technical documentation to integrate Redis Chat Memory node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Session Key": {
+              "type": "text",
+              "description": "Enter the key to use to store the memory in the workflow data."
+            },
+            "Session Time To Live": {
+              "type": "number",
+              "description": "Use this parameter to make the session expire after a given number of seconds."
+            },
+            "Context Window Length": {
+              "type": "number",
+              "description": "Enter the number of previous interactions to consider for context."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memoryxata": {
+          "title": "Xata node documentation",
+          "description": "Learn how to use the Xata node in n8n. Follow technical documentation to integrate Xata node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Session ID": {
+              "type": "text",
+              "description": "Enter the ID to use to store the memory in the workflow data."
+            },
+            "Context Window Length": {
+              "type": "number",
+              "description": "Enter the number of previous interactions to consider for context."
+            }
+          }
+        },
+        "n8n-nodes-langchain.memoryzep": {
+          "title": "Zep node documentation",
+          "description": "Learn how to use the Zep node in n8n. Follow technical documentation to integrate Zep node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Session ID": {
+              "type": "text",
+              "description": "Enter the ID to use to store the memory in the workflow data."
+            }
+          }
+        },
+        "n8n-nodes-langchain.outputparserautofixing": {
+          "title": "Auto-fixing Output Parser node documentation",
+          "description": "Learn how to use the Auto-fixing Output Parser node in n8n. Follow technical documentation to integrate Auto-fixing Output Parser node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium"
+        },
+        "n8n-nodes-langchain.outputparseritemlist": {
+          "title": "Item List Output Parser node documentation",
+          "description": "Learn how to use the Item List Output Parser node in n8n. Follow technical documentation to integrate Item List Output Parser node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeOptions": {
+            "Number of Items": {
+              "type": "number",
+              "description": "Enter the maximum items to return. Set to -1 for unlimited items."
+            },
+            "Separator": {
+              "type": "select",
+              "description": "Select the separator used to split the results into separate items.",
+              "values": [
+                "New Line",
+                "Comma"
+              ]
+            }
+          }
+        },
+        "n8n-nodes-langchain.retrievercontextualcompression": {
+          "title": "Contextual Compression Retriever node documentation",
+          "description": "Learn how to use the Contextual Compression Retriever node in n8n. Follow technical documentation to integrate Contextual Compression Retriever node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium"
+        },
+        "n8n-nodes-langchain.retrievermultiquery": {
+          "title": "MultiQuery Retriever node documentation",
+          "description": "Learn how to use the MultiQuery Retriever node in n8n. Follow technical documentation to integrate MultiQuery Retriever node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeOptions": {
+            "Query Count": {
+              "type": "number",
+              "description": "Enter how many different versions of the query to generate."
+            }
+          }
+        },
+        "n8n-nodes-langchain.retrievervectorstore": {
+          "title": "Vector Store Retriever node documentation",
+          "description": "Learn how to use the Vector Store Retriever node in n8n. Follow technical documentation to integrate Vector Store Retriever node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Limit": {
+              "type": "number",
+              "description": "Enter the maximum number of results to return."
+            }
+          }
+        },
+        "n8n-nodes-langchain.retrieverworkflow": {
+          "title": "Workflow Retriever node documentation",
+          "description": "Learn how to use the Workflow Retriever node in n8n. Follow technical documentation to integrate Workflow Retriever node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Source": {
+              "type": "select",
+              "values": [
+                "Database",
+                "Parameter"
+              ],
+              "subParameters": {
+                "Database": {
+                  "Workflow ID": {
+                    "type": "text",
+                    "description": "Enter a workflow ID."
+                  }
+                },
+                "Parameter": {
+                  "Workflow JSON": {
+                    "type": "json",
+                    "description": "Copy in a complete [workflow JSON](/workflows/export-import.md)."
+                  }
+                }
+              }
+            },
+            "Workflow values": {
+              "type": "json",
+              "description": "Values you want to pass to the workflow you're calling. Use this to pass data into the workflow."
+            }
+          }
+        },
+        "n8n-nodes-langchain.textsplittercharactertextsplitter": {
+          "title": "Character Text Splitter node documentation",
+          "description": "Learn how to use the Character Text Splitter node in n8n. Follow technical documentation to integrate Character Text Splitter node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Separator": {
+              "type": "select",
+              "description": "Select the separator used to split the document into separate items.",
+              "values": [
+                "New Line",
+                "Space",
+                "Tab",
+                "Custom"
+              ],
+              "subParameters": {
+                "Custom": {
+                  "Custom Separator": {
+                    "type": "text",
+                    "description": "Enter a custom separator."
+                  }
+                }
+              }
+            },
+            "Chunk Size": {
+              "type": "number",
+              "description": "Enter the number of characters in each chunk."
+            },
+            "Chunk Overlap": {
+              "type": "number",
+              "description": "Enter how much overlap to have between chunks."
+            }
+          }
+        },
+        "n8n-nodes-langchain.textsplitterrecursivecharactertextsplitter": {
+          "title": "Recursive Character Text Splitter node documentation",
+          "description": "Learn how to use the Recursive Character Text Splitter node in n8n. Follow technical documentation to integrate Recursive Character Text Splitter node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Chunk Size": {
+              "type": "number",
+              "description": "Enter the number of characters in each chunk."
+            },
+            "Chunk Overlap": {
+              "type": "number",
+              "description": "Enter how much overlap to have between chunks."
+            }
+          }
+        },
+        "n8n-nodes-langchain.textsplittertokensplitter": {
+          "title": "Token Splitter node documentation",
+          "description": "Learn how to use the Token Splitter node in n8n. Follow technical documentation to integrate Token Splitter node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium",
+          "nodeParameters": {
+            "Chunk Size": {
+              "type": "number",
+              "description": "Enter the number of characters in each chunk."
+            },
+            "Chunk Overlap": {
+              "type": "number",
+              "description": "Enter how much overlap to have between chunks."
+            }
+          }
+        },
+        "n8n-nodes-langchain.toolcalculator": {
+          "title": "Calculator node documentation",
+          "description": "Learn how to use the Calculator node in n8n. Follow technical documentation to integrate Calculator node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high"
+        },
+        "n8n-nodes-langchain.toolcode": {
+          "title": "Custom Code Tool node documentation",
+          "description": "Learn how to use the Custom Code Tool node in n8n. Follow technical documentation to integrate Custom Code Tool node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Name": {
+              "type": "text",
+              "description": "Give your custom code a name. It can't contain whitespace."
+            },
+            "Description": {
+              "type": "text",
+              "description": "Give your custom code a description. This tells the agent when to use this tool."
+            },
+            "Language": {
+              "type": "select",
+              "values": [
+                "JavaScript",
+                "Python"
+              ]
+            },
+            "JavaScript / Python box": {
+              "type": "code",
+              "description": "Write the code here."
+            }
+          }
+        },
+        "n8n-nodes-langchain.toolhttprequest": {
+          "title": "HTTP Request Tool node documentation",
+          "description": "Learn how to use the HTTP Request Tool node in n8n. Follow technical documentation to integrate HTTP Request Tool node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ]
+        },
+        "n8n-nodes-langchain.toolserpapi": {
+          "title": "SerpApi (Google Search) node documentation",
+          "description": "Learn how to use the SerpApi (Google Search) node in n8n. Follow technical documentation to integrate SerpApi (Google Search) node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeOptions": {
+            "Country": {
+              "type": "text",
+              "description": "Enter the country code you'd like to use."
+            },
+            "Device": {
+              "type": "select",
+              "values": [
+                "Desktop",
+                "Mobile"
+              ]
+            },
+            "Explicit Array": {
+              "type": "boolean",
+              "description": "Choose whether to force SerpApi to fetch the Google results even if a cached version is already present (turned on) or not (turned off)."
+            },
+            "Google Domain": {
+              "type": "text",
+              "description": "Enter the Google Domain to use."
+            },
+            "Language": {
+              "type": "text",
+              "description": "Enter the language code you'd like to use."
+            }
+          }
+        },
+        "n8n-nodes-langchain.toolvectorstore": {
+          "title": "Vector Store Question Answer Tool node documentation",
+          "description": "Learn how to use the Vector Store Question Answer Tool node in n8n. Follow technical documentation to integrate Vector Store Question Answer Tool node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "nodeParameters": {
+            "Data Name": {
+              "type": "text",
+              "description": "Enter the name of the data in the vector store."
+            },
+            "Description of Data": {
+              "type": "text",
+              "description": "Enter a description of the data in the vector store."
+            },
+            "Limit": {
+              "type": "number",
+              "description": "The maximum number of results to return."
+            }
+          }
+        },
+        "n8n-nodes-langchain.toolwikipedia": {
+          "title": "Wikipedia node documentation",
+          "description": "Learn how to use the Wikipedia node in n8n. Follow technical documentation to integrate Wikipedia node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium"
+        },
+        "n8n-nodes-langchain.toolwolframalpha": {
+          "title": "Wolfram|Alpha tool node documentation",
+          "description": "Learn how to use the Wolfram|Alpha tool node in n8n. Follow technical documentation to integrate Wolfram|Alpha tool node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "medium"
+        },
+        "n8n-nodes-langchain.toolworkflow": {
+          "title": "Custom n8n Workflow Tool node documentation",
+          "description": "Learn how to use the Custom n8n Workflow Tool node in n8n. Follow technical documentation to integrate Custom n8n Workflow Tool node into your workflows.",
+          "contentType": [
+            "integration",
+            "reference"
+          ],
+          "priority": "high",
+          "nodeParameters": {
+            "Name": {
+              "type": "text",
+              "description": "Enter a name for your custom code. It can't contain whitespace or special characters."
+            },
+            "Description": {
+              "type": "text",
+              "description": "Enter a custom code a description. This tells the agent when to use this tool."
+            },
+            "Source": {
+              "type": "select",
+              "values": [
+                "Database",
+                "Parameter"
+              ],
+              "subParameters": {
+                "Database": {
+                  "Workflow ID": {
+                    "type": "text",
+                    "description": "Enter a workflow ID."
+                  }
+                },
+                "Parameter": {
+                  "Workflow JSON": {
+                    "type": "json",
+                    "description": "Copy in a complete [workflow JSON](/workflows/export-import.md)."
+                  }
+                }
+              }
+            },
+            "Workflow Values": {
+              "type": "json",
+              "description": "Values you want to pass to the workflow you're calling. Use this to pass data into the workflow."
+            },
+            "Specify input schema": {
+              "type": "boolean",
+              "description": "Enable this option to define the input schema for the workflow you're calling.",
+              "subParameters": {
+                "Schema Type": {
+                  "type": "select",
+                  "values": [
+                    "From Attribute Description",
+                    "Generate From JSON Example",
+                    "Define Below"
+                  ],
+                  "description": "Define the input structure and validation.",
+                  "subParameters": {
+                    "From Attribute Description": {
+                      "description": "This option allows you to define the schema by specifying the list of attributes and their descriptions."
+                    },
+                    "Generate From JSON Example": {
+                      "description": "Input an example JSON object to automatically generate the schema. The node uses the object property types and names. It ignores the actual values."
+                    },
+                    "Define Below": {
+                      "description": "Manually input the JSON schema. Read the JSON Schema [guides and examples](https://json-schema.org/learn/miscellaneous-examples){:target=_blank .external-link} for help creating a valid JSON schema."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatollama": {
+          "common-issues": {
+            "title": "Ollama Chat Model node common issues",
+            "description": "Documentation for common issues and questions in the Ollama Chat Model node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "Processing parameters",
+                "description": "The Ollama Chat Model node is a [sub-node](/glossary.md#sub-node-n8n). Sub-nodes behave differently than other nodes when processing multiple items using expressions."
+              },
+              {
+                "title": "Can't connect to a remote Ollama instance",
+                "description": "The Ollama Chat Model node is only designed to connect to a locally hosted Ollama instance."
+              },
+              {
+                "title": "Can't connect to a local Ollama instance when using Docker",
+                "description": "The Ollama Chat Model node connects to a locally hosted Ollama instance using the base URL defined by [Ollama credentials](/integrations/builtin/credentials/ollama.md)."
+              },
+              {
+                "title": "Error: connect ECONNREFUSED ::1:11434",
+                "description": "This error occurs when your computer has IPv6 enabled, but Ollama is listening to an IPv4 address."
+              }
+            ]
+          },
+          "index": {
+            "title": "Ollama Chat Model node documentation",
+            "description": "Learn how to use the Ollama Chat Model node in n8n. Follow technical documentation to integrate Ollama Chat Model node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Model": {
+                "type": "select",
+                "description": "Select the model that generates the completion.",
+                "values": [
+                  "Llama2",
+                  "Llama2 13B",
+                  "Llama2 70B",
+                  "Llama2 Uncensored"
+                ]
+              }
+            },
+            "nodeOptions": {
+              "Sampling Temperature": {
+                "type": "number",
+                "description": "Use this option to control the randomness of the sampling process."
+              },
+              "Top K": {
+                "type": "number",
+                "description": "Enter the number of token choices the model uses to generate the next token."
+              },
+              "Top P": {
+                "type": "number",
+                "description": "Use this option to set the probability the completion should use."
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmchatopenai": {
+          "common-issues": {
+            "title": "OpenAI Chat Model node common issues",
+            "description": "Documentation for common issues and questions in the OpenAI Chat Model node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "Processing parameters",
+                "description": "The OpenAI Chat Model node is a [sub-node](/glossary.md#sub-node-n8n). Sub-nodes behave differently than other nodes when processing multiple items using expressions."
+              }
+            ]
+          },
+          "index": {
+            "title": "OpenAI Chat Model node documentation",
+            "description": "Learn how to use the OpenAI Chat Model node in n8n. Follow technical documentation to integrate OpenAI Chat Model node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Model": {
+                "type": "select",
+                "description": "Select the model to use to generate the completion.",
+                "values": []
+              }
+            },
+            "nodeOptions": {
+              "Base URL": {
+                "type": "text",
+                "description": "Enter a URL here to override the default URL for the API."
+              },
+              "Frequency Penalty": {
+                "type": "number",
+                "description": "Use this option to control the chances of the model repeating itself."
+              },
+              "Maximum Number of Tokens": {
+                "type": "number",
+                "description": "Enter the maximum number of tokens used, which sets the completion length."
+              },
+              "Response Format": {
+                "type": "select",
+                "values": [
+                  "Text",
+                  "JSON"
+                ],
+                "description": "Choose **Text** or **JSON**. **JSON** ensures the model returns valid JSON."
+              },
+              "Presence Penalty": {
+                "type": "number",
+                "description": "Use this option to control the chances of the model talking about new topics."
+              },
+              "Sampling Temperature": {
+                "type": "number",
+                "description": "Use this option to control the randomness of the sampling process."
+              },
+              "Timeout": {
+                "type": "number",
+                "description": "Enter the maximum request time in milliseconds."
+              },
+              "Max Retries": {
+                "type": "number",
+                "description": "Enter the maximum number of times to retry a request."
+              },
+              "Top P": {
+                "type": "number",
+                "description": "Use this option to set the probability the completion should use."
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.lmollama": {
+          "common-issues": {
+            "title": "Ollama Model node common issues",
+            "description": "Documentation for common issues and questions in the Ollama Model node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "Processing parameters",
+                "description": "The Ollama Model node is a [sub-node](/glossary.md#sub-node-n8n). Sub-nodes behave differently than other nodes when processing multiple items using expressions."
+              },
+              {
+                "title": "Can't connect to a remote Ollama instance",
+                "description": "The Ollama Model node is only designed to connect to a locally hosted Ollama instance."
+              },
+              {
+                "title": "Can't connect to a local Ollama instance when using Docker",
+                "description": "The Ollama Model node connects to a locally hosted Ollama instance using the base URL defined by [Ollama credentials](/integrations/builtin/credentials/ollama.md)."
+              },
+              {
+                "title": "Error: connect ECONNREFUSED ::1:11434",
+                "description": "This error occurs when your computer has IPv6 enabled, but Ollama is listening to an IPv4 address."
+              }
+            ]
+          },
+          "index": {
+            "title": "Ollama Model node documentation",
+            "description": "Learn how to use the Ollama Model node in n8n. Follow technical documentation to integrate Ollama Model node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Model": {
+                "type": "select",
+                "description": "Select the model that generates the completion.",
+                "values": [
+                  "Llama2",
+                  "Llama2 13B",
+                  "Llama2 70B",
+                  "Llama2 Uncensored"
+                ]
+              }
+            },
+            "nodeOptions": {
+              "Sampling Temperature": {
+                "type": "number",
+                "description": "Use this option to control the randomness of the sampling process."
+              },
+              "Top K": {
+                "type": "number",
+                "description": "Enter the number of token choices the model uses to generate the next token."
+              },
+              "Top P": {
+                "type": "number",
+                "description": "Use this option to set the probability the completion should use."
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.memorybufferwindow": {
+          "common-issues": {
+            "title": "Simple Memory node common issues",
+            "description": "Documentation for common issues and questions in the Simple Memory node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "Single memory instance",
+                "description": "If you add more than one Simple Memory node to your workflow, all nodes access the same memory instance by default."
+              },
+              {
+                "title": "Managing the Session ID",
+                "description": "In most cases, the sessionId is automatically retrieved from the **On Chat Message** trigger."
+              }
+            ]
+          },
+          "index": {
+            "title": "Simple Memory node documentation",
+            "description": "Learn how to use the Simple Memory node in n8n. Follow technical documentation to integrate Simple Memory node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Session Key": {
+                "type": "text",
+                "description": "Enter the key to use to store the memory in the workflow data."
+              },
+              "Context Window Length": {
+                "type": "number",
+                "description": "Enter the number of previous interactions to consider for context."
+              }
+            }
+          }
+        },
+        "n8n-nodes-langchain.outputparserstructured": {
+          "common-issues": {
+            "title": "Structured Output Parser node common issues",
+            "description": "Documentation for common issues and questions in the Structured Output Parser node in n8n, a workflow automation platform. Includes details of the issue and suggested solutions.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "commonIssues": [
+              {
+                "title": "Processing parameters",
+                "description": "The Structured Output Parser node is a [sub-node](/glossary.md#sub-node-n8n). Sub-nodes behave differently than other nodes when processing multiple items using expressions."
+              },
+              {
+                "title": "Adding the structured output parser node to AI nodes",
+                "description": "You can attach output parser nodes to select [AI root nodes](/integrations/builtin/cluster-nodes/root-nodes/index.md)."
+              },
+              {
+                "title": "Using the structured output parser to format intermediary steps",
+                "description": "The Structured Output Parser node structures the final output from AI agents. It's not intended to structure intermediary output to pass to other AI tools or stages."
+              },
+              {
+                "title": "Structuring output from agents",
+                "description": "Structured output parsing is often not reliable when working with [agents](/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/index.md)."
+              }
+            ]
+          },
+          "index": {
+            "title": "Structured Output Parser node documentation",
+            "description": "Learn how to use the Structured Output Parser node in n8n. Follow technical documentation to integrate Structured Output Parser node into your workflows.",
+            "contentType": [
+              "integration",
+              "reference"
+            ],
+            "priority": "high",
+            "nodeParameters": {
+              "Schema Type": {
+                "type": "select",
+                "values": [
+                  "From Attribute Description",
+                  "Generate From JSON Example",
+                  "Define Below"
+                ],
+                "description": "Define the output structure and validation.",
+                "subParameters": {
+                  "From Attribute Description": {
+                    "description": "This option allows you to define the schema by specifying the list of attributes and their descriptions."
+                  },
+                  "Generate From JSON Example": {
+                    "description": "Input an example JSON object to automatically generate the schema. The node uses the object property types and names. It ignores the actual values."
+                  },
+                  "Define Below": {
+                    "description": "Manually input the JSON schema. Read the JSON Schema [guides and examples](https://json-schema.org/learn/miscellaneous-examples){:target=_blank .external-link} for help creating a valid JSON schema."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
